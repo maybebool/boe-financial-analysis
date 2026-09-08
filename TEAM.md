@@ -13,8 +13,8 @@
 ## Setup cell — copy this to the top of every new notebook
 
 ```python
-# === project setup — run first, do not edit except NAME ===
-NAME = "inessa"                            # <<< your name
+# project setup — run first, do not edit except NAME
+NAME = "inessa" # <<< your name
 
 import sys, subprocess, pathlib
 IN_COLAB = "google.colab" in sys.modules
