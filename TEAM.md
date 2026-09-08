@@ -13,7 +13,7 @@
 ## Setup cell — copy this to the top of every new notebook
 
 ```python
-# project setup — run first, do not edit except NAME
+# project setup, run first, do not edit except NAME
 NAME = "inessa" # <<< your name
 
 import sys, subprocess, pathlib
@@ -22,12 +22,12 @@ IN_COLAB = "google.colab" in sys.modules
 if IN_COLAB:
     from google.colab import drive, userdata
     drive.mount("/content/drive", force_remount=False)
-    if not pathlib.Path("/content/boe-group").exists():
+    if not pathlib.Path("/content/boe-financial-analysis").exists():
         _t = userdata.get("GH_TOKEN")
         subprocess.run(["git", "clone", "-q",
                         f"https://{_t}@github.com/YOUR-ORG/boe-group.git",
-                        "/content/boe-group"], check=True)
-    ROOT = pathlib.Path("/content/boe-group")
+                        "/content/boe-financial-analysis"], check=True)
+    ROOT = pathlib.Path("/content/boe-financial-analysis")
     DATA = pathlib.Path("/content/drive/MyDrive/boe-data")
 else:
     ROOT = pathlib.Path.cwd()
