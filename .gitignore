@@ -1,0 +1,18 @@
+# environment
+.env
+.venv/
+__pycache__/
+*.py[cod]
+
+# data lives in Drive, never in git
+data/*
+!data/sample/
+!data/sample/*.csv
+
+# notebooks
+.ipynb_checkpoints/
+
+# editors and OS
+.idea/
+.vscode/
+.DS_Store

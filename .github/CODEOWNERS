@@ -1,0 +1,11 @@
+# Fallback: everything needs a review from one of us two.
+*                     @roman-handle @john-handle
+
+# Personal folders: owned by the person working in them.
+/notebooks/roman/     @roman-handle
+/notebooks/inessa/    @inessa-handle
+/notebooks/john/      @john-handle
+/notebooks/rachel/    @rachel-handle
+/notebooks/daniel/    @daniel-handle
+/notebooks/angelo/    @angelo-handle
+/notebooks/jack/      @jack-handle
