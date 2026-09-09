@@ -13,7 +13,7 @@ sentence-transformers==5.7.0
 umap-learn==0.5.12
 hdbscan==0.8.44
 
-# not preinstalled in Colab -- this is the only real install
+# not preinstalled in Colab, this is the only real install
 bertopic==0.17.4
 
 # NOT pinned on purpose: torch. Colab ships a matched CPU or CUDA build,
