@@ -70,9 +70,11 @@ the same cell again. That is normal and only happens once.
 ## Loading data
 
 ```python
-df = loading.load_topics(DATA)        # one row per topic, quarter and speaker role
-st = loading.load_statements(DATA)    # one row per statement
-mt = loading.load_metrics(DATA)       # the reported figures
+EXPORT = "2026-09-15" # pin the export this notebook was written against
+
+df = loading.load_topics(DATA, EXPORT)
+st = loading.load_statements(DATA, EXPORT)
+mt = loading.load_metrics(DATA, EXPORT)
 ```
 
 These always pick the newest dated export from the Drive folder. Roman announces
@@ -108,3 +110,15 @@ Never run `git push --force`.
 
 This repository is public. Everything you commit is visible to everyone. No
 passwords, no private notes.
+
+## Commit messages
+
+One line, lower case, in the form `type(scope): description`.
+
+- `feat(topics): add sentiment trend chart`
+- `fix(loading): handle empty export`
+- `docs(readme): clarify setup step`
+- `refactor(plots): move helper into src`
+
+Types we use: `feat`, `fix`, `docs`, `refactor`. Scope is the area you touched,
+usually a folder or module name.
