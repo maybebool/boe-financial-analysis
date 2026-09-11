@@ -14,7 +14,6 @@ Attributes:
         subdirectory relative to the base data directory.
 """
 from __future__ import annotations
-
 import pathlib
 import pandas as pd
 
