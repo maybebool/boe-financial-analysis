@@ -2,14 +2,14 @@
 
 Layout on Drive:
 
-    boe-data/results/<FIRM>_<YYYY-MM-DD>/<file>.csv
+    boe-data/results/<YYYY-MM-DD>/all_utterances.csv     both banks
+    boe-data/results/<YYYY-MM-DD>/all_sentences.csv      both banks
+    boe-data/results/<YYYY-MM-DD>/all_metrics.csv        both banks
+    boe-data/results/<YYYY-MM-DD>/<FIRM>/<file>.csv      single documents
 
-Example:
-
-    boe-data/results/UBS_2026-09-12/UBS_2023-Q1_call_utterances.csv
-
-Pick the bank with `firm`, pin the export folder with a date, and name the
-file you want. Use `firms`, `exports` and `files` to see what is there.
+Pin the export with a date and name the file you want. The combined
+`all_*.csv` files are what most notebooks need. Use `exports`, `files` and
+`firms` to see what is there.
 """
 from __future__ import annotations
 import pathlib
@@ -19,7 +19,7 @@ LATEST = "latest"
 RESULTS = "results"
 
 # Required columns per file kind. The kind is the last part of the file name:
-# "UBS_2023-Q1_call_utterances.csv" -> "utterances", "all_metrics.csv" -> "metrics".
+# "all_utterances.csv" -> "utterances", "UBS_2023-Q1_call_sentences.csv" -> "sentences".
 # A kind that is empty or missing here is loaded without a schema check.
 REQUIRED: dict[str, list[str]] = {
     "utterances": [],
@@ -40,41 +40,45 @@ def _results_dir(data_dir: pathlib.Path) -> pathlib.Path:
     return folder
 
 
-def firms(data_dir: pathlib.Path) -> list[str]:
-    """Banks that have at least one export, e.g. ['UBS']."""
-    return sorted({p.name.rsplit("_", 1)[0]
-                   for p in _results_dir(data_dir).iterdir()
-                   if p.is_dir() and "_" in p.name})
+def exports(data_dir: pathlib.Path) -> list[str]:
+    """Export dates available, oldest first."""
+    return sorted(p.name for p in _results_dir(data_dir).iterdir() if p.is_dir())
 
 
-def exports(data_dir: pathlib.Path, firm: str) -> list[str]:
-    """Export dates available for one bank, oldest first."""
-    return sorted(p.name.rsplit("_", 1)[-1]
-                  for p in _results_dir(data_dir).glob(f"{firm}_*") if p.is_dir())
-
-
-def resolve(data_dir: pathlib.Path, firm: str, export: str) -> pathlib.Path:
-    """Turn a bank plus an export date into the folder holding the CSV files."""
-    folder = _results_dir(data_dir)
-    known = exports(data_dir, firm)
+def resolve(data_dir: pathlib.Path, export: str,
+            firm: str | None = None) -> pathlib.Path:
+    """Turn an export date, and optionally a bank, into a concrete folder."""
+    known = exports(data_dir)
     if not known:
         raise FileNotFoundError(
-            f"[CONTRACT] no folder '{firm}_<date>' in {folder}. "
-            f"Banks available: {', '.join(firms(data_dir)) or 'none'}"
+            f"[CONTRACT] no dated export folder in {_results_dir(data_dir)}."
         )
     if export == LATEST:
         export = known[-1]
     if export not in known:
         raise FileNotFoundError(
-            f"[CONTRACT] no export '{export}' for {firm}. "
-            f"Available: {', '.join(known)}"
+            f"[CONTRACT] no export '{export}'. Available: {', '.join(known)}"
         )
-    return folder / f"{firm}_{export}"
+    folder = _results_dir(data_dir) / export
+    if firm is None:
+        return folder
+    if not (folder / firm).exists():
+        raise FileNotFoundError(
+            f"[CONTRACT] no folder '{firm}' in export {export}. "
+            f"Banks available: {', '.join(firms(data_dir, export)) or 'none'}"
+        )
+    return folder / firm
 
 
-def files(data_dir: pathlib.Path, firm: str, export: str = LATEST) -> list[str]:
-    """File names inside one export folder, ready to copy into `load`."""
-    return sorted(p.name for p in resolve(data_dir, firm, export).glob("*.csv"))
+def firms(data_dir: pathlib.Path, export: str = LATEST) -> list[str]:
+    """Banks that have a single document folder in this export, e.g. ['JPM', 'UBS']."""
+    return sorted(p.name for p in resolve(data_dir, export).iterdir() if p.is_dir())
+
+
+def files(data_dir: pathlib.Path, export: str = LATEST,
+          firm: str | None = None) -> list[str]:
+    """File names in the export, or inside one bank folder. Copy into `load`."""
+    return sorted(p.name for p in resolve(data_dir, export, firm).glob("*.csv"))
 
 
 def _kind(filename: str) -> str:
@@ -82,26 +86,27 @@ def _kind(filename: str) -> str:
     return pathlib.Path(filename).stem.rsplit("_", 1)[-1].lower()
 
 
-def load(data_dir: pathlib.Path, firm: str, filename: str,
-         export: str = LATEST) -> pd.DataFrame:
-    """Load one CSV out of one export folder.
+def load(data_dir: pathlib.Path, filename: str, export: str = LATEST,
+         firm: str | None = None) -> pd.DataFrame:
+    """Load one CSV out of one export.
 
-    Pass an explicit export date so a rerun of this notebook gives the same
-    numbers. `loading.LATEST` floats to the newest export on purpose.
+    Leave `firm` out for the combined `all_*.csv` files. Pass a bank name to
+    reach a single document inside that bank's folder. Pin `export` to a date
+    so a rerun of this notebook gives the same numbers.
     """
-    folder = resolve(data_dir, firm, export)
+    folder = resolve(data_dir, export, firm)
     path = folder / filename
     if not path.exists():
         raise FileNotFoundError(
             f"[CONTRACT] {filename} not found in {folder.name}. "
-            f"Available: {', '.join(files(data_dir, firm, export))}"
+            f"Available: {', '.join(files(data_dir, export, firm))}"
         )
     df = pd.read_csv(path)
     missing = [c for c in REQUIRED.get(_kind(filename), []) if c not in df.columns]
     if missing:
         raise ValueError(
-            f"[CONTRACT] {folder.name}/{path.name} is missing columns {missing}. "
+            f"[CONTRACT] {path.name} is missing columns {missing}. "
             "Ask Roman which export this notebook should use."
         )
-    print(f"loaded {folder.name}/{path.name}  {len(df)} rows")
+    print(f"loaded {path.name}  {len(df)} rows")
     return df

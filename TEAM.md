@@ -70,26 +70,27 @@ the same cell again. That is normal and only happens once.
 ## Loading data
 
 ```python
-FIRM = "UBS"           # which bank
-EXPORT = "2026-09-12"  # pin the export folder this notebook was written against
+EXPORT = "2026-09-13"  # pin the export this notebook was written against
 
-print(loading.firms(DATA))                  # banks available
-print(loading.exports(DATA, FIRM))          # export dates for that bank
-print(loading.files(DATA, FIRM, EXPORT))    # file names inside that export
+utt = loading.load(DATA, "all_utterances.csv", EXPORT)
+sent = loading.load(DATA, "all_sentences.csv", EXPORT)
+met = loading.load(DATA, "all_metrics.csv", EXPORT)
 ```
 
-Then load the file you want by its name:
+These three files hold every bank. Filter with `utt[utt["firm"] == "UBS"]`.
+
+Single documents live in a folder per bank inside the same export:
 
 ```python
-utt = loading.load(DATA, FIRM, "all_utterances.csv", EXPORT)
-sent = loading.load(DATA, FIRM, "all_sentences.csv", EXPORT)
-met = loading.load(DATA, FIRM, "all_metrics.csv", EXPORT)
+print(loading.firms(DATA, EXPORT))              # banks in this export
+print(loading.files(DATA, EXPORT, "UBS"))       # file names for that bank
 
-q1 = loading.load(DATA, FIRM, "UBS_2023-Q1_call_sentences.csv", EXPORT)
+q1 = loading.load(DATA, "UBS_2023-Q1_call_utterances.csv", EXPORT, firm="UBS")
 ```
 
-Keep `EXPORT` pinned to a date so the notebook gives the same numbers when you
-rerun it later. Roman announces in Discord when a new export is there.
+Run `print(loading.exports(DATA))` to see which export dates exist. Keep
+`EXPORT` pinned to a date so the notebook gives the same numbers when you rerun
+it later. Roman announces in Discord when a new export is there.
 
 ## Saving your work
 
