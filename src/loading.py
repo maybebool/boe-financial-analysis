@@ -1,74 +1,108 @@
-"""Utilities for managing and loading structured data exports.
+"""Loading interface for the shared CSV exports on Drive.
 
-This module provides functions for listing, resolving, and loading
-different kinds of structured data exports such as topics, statements,
-and metrics. It ensures that the exported data meets predefined schema
-requirements and provides error handling for missing files or
-incomplete data.
+Layout on Drive:
 
-Attributes:
-    LATEST (str): A constant representing the latest version specifier.
-    REQUIRED (dict): A dictionary specifying the required columns for
-        each kind of data export.
-    SUBDIR (dict): A dictionary mapping export kinds to their respective
-        subdirectory relative to the base data directory.
+    boe-data/results/<YYYY-MM-DD>/all_utterances.csv     both banks
+    boe-data/results/<YYYY-MM-DD>/all_sentences.csv      both banks
+    boe-data/results/<YYYY-MM-DD>/all_metrics.csv        both banks
+    boe-data/results/<YYYY-MM-DD>/<FIRM>/<file>.csv      single documents
+
+Pin the export with a date and name the file you want. The combined
+`all_*.csv` files are what most notebooks need. Use `exports`, `files` and
+`firms` to see what is there.
 """
 from __future__ import annotations
 import pathlib
 import pandas as pd
 
 LATEST = "latest"
+RESULTS = "results"
 
-REQUIRED = {
-    "topics": ["firm", "quarter", "topic", "speaker_role",
-               "n_sentences", "mean_sentiment"],
-    "statements": ["firm", "quarter", "speaker_name", "speaker_role",
-                   "topic", "sentiment"],
-    "metrics": ["firm", "quarter", "metric_name", "value", "unit"],
-}
-
-# Where each export kind lives, relative to the Drive root.
-SUBDIR = {
-    "topics": "results",
-    "statements": "results",
-    "metrics": "results",
+# Required columns per file kind. The kind is the last part of the file name:
+# "all_utterances.csv" -> "utterances", "UBS_2023-Q1_call_sentences.csv" -> "sentences".
+# A kind that is empty or missing here is loaded without a schema check.
+REQUIRED: dict[str, list[str]] = {
+    "utterances": [],
+    "sentences": [],
+    "metrics": [],
 }
 
 
-def available(data_dir: pathlib.Path, kind: str) -> list[str]:
-    """List the export versions on disk for this kind, oldest first."""
-    folder = data_dir / SUBDIR.get(kind, "")
-    return [p.stem.rsplit("_", 1)[-1] for p in sorted(folder.glob(f"{kind}_*.csv"))]
-
-
-def resolve(data_dir: pathlib.Path, kind: str, version: str) -> pathlib.Path:
-    """Turn a version string into a concrete file path."""
-    folder = data_dir / SUBDIR.get(kind, "")
+def _results_dir(data_dir: pathlib.Path) -> pathlib.Path:
+    """The results folder, with a readable error if Drive is not there."""
+    folder = data_dir / RESULTS
     if not folder.exists():
         raise FileNotFoundError(
             f"[CONTRACT] folder not found: {folder}. "
-            "In Colab, check that Drive is mounted and 'boe-data' is shared with you."
+            "In Colab, check that Drive is mounted and that 'boe-data' is in "
+            "My Drive (Shared with me, right click, Organise, Add shortcut)."
         )
-    if version == LATEST:
-        hits = sorted(folder.glob(f"{kind}_*.csv"))
-        if not hits:
-            raise FileNotFoundError(f"[CONTRACT] no '{kind}_*.csv' in {folder}.")
-        return hits[-1]
+    return folder
 
-    path = folder / f"{kind}_{version}.csv"
+
+def exports(data_dir: pathlib.Path) -> list[str]:
+    """Export dates available, oldest first."""
+    return sorted(p.name for p in _results_dir(data_dir).iterdir() if p.is_dir())
+
+
+def resolve(data_dir: pathlib.Path, export: str,
+            firm: str | None = None) -> pathlib.Path:
+    """Turn an export date, and optionally a bank, into a concrete folder."""
+    known = exports(data_dir)
+    if not known:
+        raise FileNotFoundError(
+            f"[CONTRACT] no dated export folder in {_results_dir(data_dir)}."
+        )
+    if export == LATEST:
+        export = known[-1]
+    if export not in known:
+        raise FileNotFoundError(
+            f"[CONTRACT] no export '{export}'. Available: {', '.join(known)}"
+        )
+    folder = _results_dir(data_dir) / export
+    if firm is None:
+        return folder
+    if not (folder / firm).exists():
+        raise FileNotFoundError(
+            f"[CONTRACT] no folder '{firm}' in export {export}. "
+            f"Banks available: {', '.join(firms(data_dir, export)) or 'none'}"
+        )
+    return folder / firm
+
+
+def firms(data_dir: pathlib.Path, export: str = LATEST) -> list[str]:
+    """Banks that have a single document folder in this export, e.g. ['JPM', 'UBS']."""
+    return sorted(p.name for p in resolve(data_dir, export).iterdir() if p.is_dir())
+
+
+def files(data_dir: pathlib.Path, export: str = LATEST,
+          firm: str | None = None) -> list[str]:
+    """File names in the export, or inside one bank folder. Copy into `load`."""
+    return sorted(p.name for p in resolve(data_dir, export, firm).glob("*.csv"))
+
+
+def _kind(filename: str) -> str:
+    """Last token of the file name, used to look up the column contract."""
+    return pathlib.Path(filename).stem.rsplit("_", 1)[-1].lower()
+
+
+def load(data_dir: pathlib.Path, filename: str, export: str = LATEST,
+         firm: str | None = None) -> pd.DataFrame:
+    """Load one CSV out of one export.
+
+    Leave `firm` out for the combined `all_*.csv` files. Pass a bank name to
+    reach a single document inside that bank's folder. Pin `export` to a date
+    so a rerun of this notebook gives the same numbers.
+    """
+    folder = resolve(data_dir, export, firm)
+    path = folder / filename
     if not path.exists():
         raise FileNotFoundError(
-            f"[CONTRACT] {path.name} not found in {folder}. "
-            f"Available: {', '.join(available(data_dir, kind)) or 'none'}"
+            f"[CONTRACT] {filename} not found in {folder.name}. "
+            f"Available: {', '.join(files(data_dir, export, firm))}"
         )
-    return path
-
-
-def load(data_dir: pathlib.Path, kind: str, version: str) -> pd.DataFrame:
-    """Load one export. Pass an explicit version, or loading.LATEST to float."""
-    path = resolve(data_dir, kind, version)
     df = pd.read_csv(path)
-    missing = [c for c in REQUIRED[kind] if c not in df.columns]
+    missing = [c for c in REQUIRED.get(_kind(filename), []) if c not in df.columns]
     if missing:
         raise ValueError(
             f"[CONTRACT] {path.name} is missing columns {missing}. "
@@ -76,18 +110,3 @@ def load(data_dir: pathlib.Path, kind: str, version: str) -> pd.DataFrame:
         )
     print(f"loaded {path.name}  {len(df)} rows")
     return df
-
-
-def load_topics(data_dir: pathlib.Path, version: str) -> pd.DataFrame:
-    """One row per topic, quarter and speaker role."""
-    return load(data_dir, "topics", version)
-
-
-def load_statements(data_dir: pathlib.Path, version: str) -> pd.DataFrame:
-    """One row per statement, with speaker, role, topic and sentiment."""
-    return load(data_dir, "statements", version)
-
-
-def load_metrics(data_dir: pathlib.Path, version: str) -> pd.DataFrame:
-    """Reported figures, one row per firm, quarter and metric."""
-    return load(data_dir, "metrics", version)

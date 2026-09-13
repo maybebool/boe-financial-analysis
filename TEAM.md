@@ -70,15 +70,27 @@ the same cell again. That is normal and only happens once.
 ## Loading data
 
 ```python
-EXPORT = "2026-09-15" # pin the export this notebook was written against
+EXPORT = "2026-09-13"  # pin the export this notebook was written against
 
-df = loading.load_topics(DATA, EXPORT)
-st = loading.load_statements(DATA, EXPORT)
-mt = loading.load_metrics(DATA, EXPORT)
+utt = loading.load(DATA, "all_utterances.csv", EXPORT)
+sent = loading.load(DATA, "all_sentences.csv", EXPORT)
+met = loading.load(DATA, "all_metrics.csv", EXPORT)
 ```
 
-These always pick the newest dated export from the Drive folder. Roman announces
-in Discord which export is current.
+These three files hold every bank. Filter with `utt[utt["firm"] == "UBS"]`.
+
+Single documents live in a folder per bank inside the same export:
+
+```python
+print(loading.firms(DATA, EXPORT))              # banks in this export
+print(loading.files(DATA, EXPORT, "UBS"))       # file names for that bank
+
+q1 = loading.load(DATA, "UBS_2023-Q1_call_utterances.csv", EXPORT, firm="UBS")
+```
+
+Run `print(loading.exports(DATA))` to see which export dates exist. Keep
+`EXPORT` pinned to a date so the notebook gives the same numbers when you rerun
+it later. Roman announces in Discord when a new export is there.
 
 ## Saving your work
 
