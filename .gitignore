@@ -4,10 +4,9 @@
 __pycache__/
 *.py[cod]
 
-# data lives in Drive, never in git
-data/*
-!data/sample/
-!data/sample/*.csv
+# source text: copyrighted by the banks, never in a public repository
+data/
+
 
 # notebooks
 .ipynb_checkpoints/
