@@ -12,7 +12,7 @@ All Stage 2 structuring logic lives in `utils` as a set of pure functions: each 
 | `build_structured_sentences(raw_sentences, structured_utterances)` | raw + structured -> structured                      | Links sentences to their parent utterance; applies `_fix_contractions`                                                                                   |
 | `build_qa_exchanges(structured_utterances)`                        | structured -> Q&A-only subset                       | Groups consecutive analyst turns into exchanges (handles back-to-back different analysts correctly); flags `is_filler`                                   |
 | `clean_boilerplate(text)`                                          | text -> text                                        | Strips operator/call-mechanics phrases (`BOILERPLATE_PHRASES`) from text used for topic modelling, without affecting the underlying `is_filler` decision |
-| `run_pipeline()`                                                   | — -> dict of all six DataFrames                     | Orchestrates the full Stage 2 pass end-to-end                                                                                                            |
+| `run_pipeline()`                                                   | — -> dict of all 3 DataFrames                     | Orchestrates the full Stage 2 pass end-to-end                                                                                                            |
 
 
 
