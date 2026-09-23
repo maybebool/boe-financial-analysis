@@ -8,10 +8,29 @@
 6) Compare multiple banks for "unusual" changes - flag for risk review
 
 
+project_setup file contains only the code needed to connect to the raw data
+initial_eda is just a quick check of the contents
 
+-------------
+Bertopic - couldn't get this to work. Renamed as old_bertopic and may revisit later
+
+-------------
 First attempt - now called old_bert_emotion
 Issues with plotting last sentence analysed rather than average
 
-
+21/09/2026
 Second attempt - bert_emotion_ubs
 Gives positive emotions (Joy & Love), negative emotions (fear, anger & sadness) plus surprise (which could be either)
+"Surprise" aligns with annoucement of merger in Q2 2023
+
+22/9/2026
+Completed JPM analysis using Bertemotion - details in final summary tally with JPM performance
+Issue is the terminology = "love" is an odd word to describe the financial industry
+There is proven overlap with "joy" and so could they be combined into "happiness" ? - or is this the same as "positive sentiment in Finbert
+
+
+23/9/26
+Test theory using FinBert model and UBS data - does this reduce the information too far?
+Yes - the only sentiment that it picks up is the negative emotion in the Q&A than the presentation in Q3 2024
+
+Repeat with JPM to check effects
