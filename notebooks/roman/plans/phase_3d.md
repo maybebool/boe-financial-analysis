@@ -59,3 +59,20 @@ Added to `tests/`: every quote in the output is found verbatim (whitespace norma
 
 - **Window ALL.** In addition to W1, every unit is searched in all reports of the same bank up to the end of 2024: all quarterly reports 2023-Q1 to 2024-Q4 and, for UBS, both annual reports (2023 and 2024). Same search terms, same reading rules, same quote check. The table gets its own columns `class_all`, `first_report_all` (the earliest report, by reporting period, that contains an A counterpart, or if there is none a B counterpart), `quote_all`, `file_all`, `page_all`. This separates "the call is earlier than the reports" (C or B in W1, A in ALL in a later report) from "only the call states it" (C or B in both). Counts for ALL are reported as their own table, next to the W1 counts.
 - **Sort order.** `counterparts_read.csv` is sorted with all genuine UBS target units of class C in W1 first (for Roman's complete check), then the remaining UBS targets, then UBS guidance and other, then JPMorgan, each block by origin quarter.
+
+## Amendment 2026-09-23 (after the results): Roman's check of the UBS targets of class C
+
+Recorded after the results. Roman checked the seven UBS target units of class C with his own search script on the raw HTML (evidence in `notebooks/roman/data/phase3d/roman_check/`, window: same-quarter report and annual report of the same year).
+
+- **Confirmed C:** T16, T27, T33, T68.
+- **T3:** C confirmed. The programme was announced before the acquisition (4Q22 call, 1.1 billion), and the 2022 reports lie outside the window. The unit stays in the table and is counted separately as "pre-acquisition".
+- **T25: B instead of C.** 2023 annual report: "We plan to fund this growth organically from the capital released from the unwinding of the Non-core and Legacy business division" (no figure).
+- **T32: B instead of C.** 2023 annual report, going concern capital requirements: higher TBTF requirements after the acquisition, phased in from the end of 2025 to the beginning of 2030 at the latest (no figure).
+- **Broader search for T27, T33 and T68** with Roman's term combinations (AT1 with 2024 and issuance; Non-core and Legacy with RWA and 2024; senior unsecured, HoldCo and UBS Group AG with 2025), all UBS reports: no forward-looking sentence about the same commitment, classes unchanged. For T27 the 2023-Q4 report (p. 47) expects the NCL run-down to offset model and Basel III effects on Group RWA in 2024 and 2025; this concerns Group RWA, not the NCL level, and is noted in the comment.
+- **Reconstruction artefact found during the check.** The phase 3b text reconstruction joins a hyphenated word at a line break with the next lower-case word even when the hyphen belongs to the word, so "Non-core" can become "Noncore" (18 of 752 occurrences in the UBS reports) and "integration-related" "integrationrelated" (24 occurrences). Searches for the hyphenated forms can miss these places. Not repaired in this amendment; it is reported to Roman.
+- `checked_by_roman` is filled for the seven units; the other units remain unchecked.
+
+## Amendment 2026-09-23: T27 as borderline case, search rerun on the repaired text
+
+- **T27** stays C on Roman's decision. The 2023-Q4 report (p. 47) and the 2023 annual report (p. 193) expect the NCL run-down to offset model and Basel III effects on Group RWA in 2024 and 2025; forward-looking, but about Group RWA, not the NCL level. Shown as a borderline case with the quote in the notebook.
+- **Search rerun.** The round-1 and round-2 search terms (hashes unchanged) were run with `phase3d_search.py --repaired` on the repaired reconstruction of phase 3b; output in `notebooks/roman/data/phase3d/repaired/`. `counterparts_read.csv`, `hits.csv` and `checked_by_roman` are not changed. Result: 168 new hit sentences in 19 units, almost all through "Non-core and Legacy" and "integration-related expenses". For the units of class C (T16, T27, T33, T62, T68; T3 has none) none of the new hits is a forward-looking sentence about the same commitment; for the units of class B there is no new hit that contains the call figure. No class change is proposed.

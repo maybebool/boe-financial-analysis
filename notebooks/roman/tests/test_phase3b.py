@@ -22,3 +22,18 @@ def test_every_report_has_text_and_is_unchanged():
         pages, _ = p3b.reconstruct(p3b.REPORTS / name)
         assert pages and all(t for _, t in pages)
     assert p3b.file_hashes() == before
+
+
+REPAIR_FRAGMENT = """<div id="Page1" style="position:relative;width:794px;height:1123px;">
+<div style="position:absolute;left:57px;top:100px;">Non-core and Legacy reduced RWA. The Non-</div>
+<div style="position:absolute;left:57px;top:118px;">core business and the expec-</div>
+<div style="position:absolute;left:57px;top:136px;">ted integration-related costs.</div>
+</div>"""
+
+
+def test_hyphen_repair_keeps_known_compounds():
+    old = p3b.pages_positioned(REPAIR_FRAGMENT, repair=False)[0][1]
+    new = p3b.pages_positioned(REPAIR_FRAGMENT, repair=True)[0][1]
+    assert "The Noncore business" in old  # the artefact of the original reconstruction
+    assert "The Non-core business" in new  # kept: 'Non-core' occurs hyphenated elsewhere in the report
+    assert "the expected integration-related costs" in new  # soft break still removed

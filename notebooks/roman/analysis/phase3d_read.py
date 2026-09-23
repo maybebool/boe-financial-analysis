@@ -60,10 +60,13 @@ R = {
     "T24": (True, "", "A", "around 13bn gross cost reductions by end-2026", "approximately USD 13bn by end-2026",
             Q("UBS_2023-Q4_report.htm", 7, "exit rate gross cost savings of approximately USD 13bn by the end of 2026"), "A",
             Q("UBS_2023-Q4_report.htm", 7, "exit rate gross cost savings of approximately USD 13bn by the end of 2026"), ""),
-    "T25": (True, "", "C", "NCL capital release over 6bn by end-2026", "", None, "C", None,
-            "Realised: the 2024 annual report states that NCL 'released over USD 6 billion of capital' (reported, not forward-looking)."),
+    "T25": (True, "", "B", "NCL capital release over 6bn by end-2026", "capital released from the NCL unwinding, no figure",
+            Q("UBS_2023_annual_report.htm", 62, "We plan to fund this growth organically from the capital released from the unwinding of the"), "B",
+            Q("UBS_2023_annual_report.htm", 62, "We plan to fund this growth organically from the capital released from the unwinding of the"),
+            "Changed from C to B after Roman's check (amendment of 2026-09-23). Realised later: the 2024 annual report states that NCL 'released over USD 6 billion of capital'."),
     "T26": (True, "", "A", "around 100bn NNA per annum through 2025", "around USD 100bn annually through 2025", UBS23Q4_NNA, "A", UBS23Q4_NNA, ""),
-    "T27": (True, "", "C", "NCL credit and market risk RWA substantially below 40bn by end-2024", "", None, "C", None, ""),
+    "T27": (True, "", "C", "NCL credit and market risk RWA substantially below 40bn by end-2024", "", None, "C", None,
+            "Broader search (2026-09-23): 2023-Q4 report p47 expects the NCL run-down to offset model and Basel III effects on Group RWA in 2024 and 2025; about Group RWA, not the NCL level, so class unchanged."),
     "T28": (True, "", "A", "buybacks up to 1bn in 2024", "up to USD 1bn in 2024",
             Q("UBS_2023-Q4_report.htm", 8, "In 2024, we plan to repurchase up to USD 1bn of our shares"), "A",
             Q("UBS_2023-Q4_report.htm", 8, "In 2024, we plan to repurchase up to USD 1bn of our shares"), ""),
@@ -73,13 +76,16 @@ R = {
     "T30": (True, "", "B", "integration-related expenses around 13bn by end-2026", "no total; estimate to be revised",
             Q("UBS_2023-Q2_report.htm", 8, "We expect to revise our initial estimates of cumulative integration-related expenses"), "B",
             Q("UBS_2023-Q2_report.htm", 8, "We expect to revise our initial estimates of cumulative integration-related expenses"),
-            "Consistent with phase 3b: the expected total appears in no report."),
+            "The explicit total (13bn, later 14bn) appears in no report; the 2023-Q2 report gives an indirect order of magnitude (offset by accretion-to-par effects of approximately USD 12bn) and announces a revised estimate."),
     "T31": (True, "", "B", "NCL 2024 operating expenses and pre-tax loss around 4bn", "NCL loss below USD 1bn exit rate by end-2026",
             Q("UBS_2023-Q4_report.htm", 8, "an underlying profit-before-tax loss of less than USD 1bn (exit rate)"), "B",
             Q("UBS_2023-Q4_report.htm", 8, "an underlying profit-before-tax loss of less than USD 1bn (exit rate)"), ""),
-    "T32": (True, "", "C", "going-concern requirement +180bp to 16.7% between 2026 and 2030", "", None, "C", None, ""),
+    "T32": (True, "", "B", "going-concern requirement +180bp to 16.7% between 2026 and 2030", "higher TBTF requirements phased in from end-2025 to 2030, no figure",
+            Q("UBS_2023_annual_report.htm", 186, "The phase-in of these increased capital requirements will commence from the end of 2025 and will be completed by the beginning of 2030, at the latest"),
+            "B", Q("UBS_2023_annual_report.htm", 186, "The phase-in of these increased capital requirements will commence from the end of 2025 and will be completed by the beginning of 2030, at the latest"),
+            "Changed from C to B after Roman's check (amendment of 2026-09-23)."),
     "T33": (True, "", "C", "AT1 issuance up to 2bn in 2024", "", None, "C", None,
-            "Consistent with phase 3b: the plan is only in the call; the reports show issued amounts (1.5, 0.4, 1.6bn) as actuals."),
+            "Consistent with phase 3b: the plan is only in the call; the reports show issued amounts (1.5, 0.4, 1.6bn) as actuals. Broader search (AT1 with 2024 and issu, 2026-09-23): no forward-looking sentence."),
     "T35": (True, "", "B", "Group RWA down 35bn over three years, freeing around 5bn CET1", "Group RWA around USD 510bn by end-2026",
             Q("UBS_2023-Q4_report.htm", 7, "We expect Group RWA to be around USD 510bn by the end of 2026"), "B",
             Q("UBS_2023-Q4_report.htm", 7, "We expect Group RWA to be around USD 510bn by the end of 2026"), ""),
@@ -110,7 +116,8 @@ R = {
             Q("UBS_2023-Q4_report.htm", 8, "Personal & Corporate Banking: an underlying cost / income ratio of less than 50% by the end of 2026"), "A",
             Q("UBS_2023-Q4_report.htm", 8, "Personal & Corporate Banking: an underlying cost / income ratio of less than 50% by the end of 2026"),
             "The RoE of near 20% is not in the reports (the 2024-Q4 report gives a return on attributed equity of around 19%)."),
-    "T68": (True, "", "C", "Group HoldCo around 90bn by end-2025", "", None, "C", None, ""),
+    "T68": (True, "", "C", "Group HoldCo around 90bn by end-2025", "", None, "C", None,
+            "Broader search (senior unsecured, HoldCo, TLAC, 2026-09-23): only generic capital management statements, no reduction target."),
     # ---- UBS guidance
     "T8": (True, "", "A", "over 10bn gross expense take-out vs 2022 base", "gross cost reductions of over USD 10bn", UBS23Q2_10BN, "A", UBS23Q2_10BN,
            "Phase 3 filed this as expense guidance; it is the first form of the cost-reduction target."),
@@ -168,6 +175,19 @@ R = {
 }
 
 
+# Roman's check of the seven UBS target units of class C (2026-09-23), with his own search script
+CHECKED = {
+    "T3": "Roman 2026-09-23: C confirmed. Programme announced before the acquisition (4Q22 call, 1.1bn); 2022 reports outside the window.",
+    "T16": "Roman 2026-09-23: C confirmed.",
+    "T25": "Roman 2026-09-23: B instead of C (2023 annual report, capital released from the NCL unwinding, no figure).",
+    "T27": "Roman 2026-09-23: C confirmed.",
+    "T32": "Roman 2026-09-23: B instead of C (2023 annual report, going concern capital requirements, phase-in end-2025 to 2030, no figure).",
+    "T33": "Roman 2026-09-23: C confirmed.",
+    "T68": "Roman 2026-09-23: C confirmed.",
+}
+PRE_ACQUISITION = {"T3"}  # announced before the acquisition; counted separately
+
+
 def norm(t):
     return re.sub(r"\s+", " ", str(t)).strip()
 
@@ -194,7 +214,7 @@ def main():
                    search_terms=" | ".join(f"[{t.group}{'' if t.round == 1 else ' r2'}] {t.term}"
                                            for t in terms[terms.unit == u.unit].itertuples()),
                    merged_with=u.merged_with if isinstance(u.merged_with, str) else "", comment=comment,
-                   checked_by_roman="")
+                   pre_acquisition="yes" if u.unit in PRE_ACQUISITION else "", checked_by_roman=CHECKED.get(u.unit, ""))
         for q, prefix, window in [(q1, "", w1(u)), (qa, "_all", None)]:
             if q is None:
                 continue
@@ -214,15 +234,16 @@ def main():
             assert (cls == "C") == (q1 is None) and (cls_all == "C") == (qa is None), u.unit
         rows.append(row)
     df = pd.DataFrame(rows)
-    df["_block"] = [0 if (b == "UBS" and t == "target" and g == "yes" and c == "C") else
+    # the block of UBS targets checked by Roman stays first
+    df["_block"] = [0 if u in CHECKED else
                     1 if (b == "UBS" and t == "target") else 2 if b == "UBS" else 3
-                    for b, t, g, c in zip(df.bank, df.type, df.genuine, df["class"])]
+                    for u, b, t in zip(df.unit, df.bank, df.type)]
     df["_q"] = df.origin.str[:7]
     df = df.sort_values(["_block", "_q", "unit"]).drop(columns=["_block", "_q"])
     df.to_csv(OUT / "counterparts_read.csv", index=False)
 
     g = df[df.genuine == "yes"]
-    cell = lambda d: d.bank + " " + d["type"]  # noqa: E731
+    cell = lambda d: d.bank + " " + d["type"] + d.pre_acquisition.map({"yes": ", pre-acquisition", "": ""})  # noqa: E731
     counts = (df.assign(cell=cell(df)).groupby("cell")
               .agg(units=("unit", "size"), not_genuine=("genuine", lambda x: int((x == "no").sum())))
               .join(g.assign(cell=cell(g)).pivot_table(index="cell", columns="class", values="unit", aggfunc="size",

@@ -40,8 +40,10 @@ def test_round1_terms_unchanged_and_reports_unchanged():
     assert p3b.file_hashes() == log["report_hashes"]
 
 
-def test_sort_order_ubs_target_c_first():
+def test_sort_order_checked_units_first():
+    # the seven UBS target units that were class C before Roman's check stay at the top
     df = pd.read_csv(OUT / "counterparts_read.csv", keep_default_na=False)
-    first = (df.bank == "UBS") & (df["type"] == "target") & (df.genuine == "yes") & (df["class"] == "C")
+    first = df.unit.isin(p3d.CHECKED)
     n = int(first.sum())
-    assert first.iloc[:n].all() and not first.iloc[n:].any()
+    assert n == 7 and first.iloc[:n].all() and not first.iloc[n:].any()
+    assert (df.set_index("unit").loc[list(p3d.CHECKED), "checked_by_roman"] != "").all()

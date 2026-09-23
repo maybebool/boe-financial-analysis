@@ -1,11 +1,14 @@
 """Phase 3b: reconstruct report text page by page and retrieve passages for the five phase 3 cases.
 
 Run from the repository root: python notebooks/roman/analysis/phase3b_reports.py
+With --repaired, line-end hyphens of words that occur hyphenated elsewhere in the report are kept, and the output
+goes to notebooks/roman/data/phase3b_repaired/.
 Reads notebooks/roman/data/reports/ (never modified) and phase 3 statements; writes report_pages.csv,
 checks.csv, hits_reports.csv and hits_calls.csv to notebooks/roman/data/phase3b/.
 """
 import hashlib
 import re
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -15,6 +18,10 @@ ROOT = Path(__file__).resolve().parents[3]
 REPORTS = ROOT / "notebooks" / "roman" / "data" / "reports"
 PHASE3 = ROOT / "notebooks" / "roman" / "data" / "phase3"
 OUT = ROOT / "notebooks" / "roman" / "data" / "phase3b"
+# the repaired reconstruction is written to its own folder so that the text read in phases 3b to 3d stays intact
+REPAIR_HYPHENS = "--repaired" in sys.argv
+if REPAIR_HYPHENS:
+    OUT = ROOT / "notebooks" / "roman" / "data" / "phase3b_repaired"
 
 CASES = {
     "C1": ("UBS", [r"gross cost sav", r"gross sav", r"cost reduction", r"(run-rate|exit rate)[^.]{0,80}sav"]),
@@ -48,19 +55,34 @@ def line_text(div):
     return SPACE_RE.sub(" ", "".join(parts).replace("\xa0", " ")).strip()
 
 
-def join_lines(lines):
+HYPHENATED_RE = re.compile(r"\b[A-Za-z]+(?:-[A-Za-z]+)+\b")
+
+
+def hyphenated_words(lines):
+    """Lower-case words that contain a hyphen inside a line, e.g. 'non-core', 'integration-related'."""
+    return {w.lower() for ln in lines for w in HYPHENATED_RE.findall(ln)}
+
+
+def join_lines(lines, keep_hyphen=frozenset()):
+    """Join printed lines; a line-end hyphen before a lower-case word is a soft break and is removed, unless the
+    hyphenated form occurs elsewhere in the same report (repair of 2026-09-23, e.g. 'Non-' + 'core')."""
     out = ""
     for ln in lines:
         if not ln:
             continue
         if out.endswith("-") and ln[:1].islower():
-            out = out[:-1] + ln
+            head = re.search(r"([A-Za-z-]+)-$", out)
+            tail = re.match(r"[A-Za-z-]+", ln)
+            if head and tail and f"{head.group(1)}-{tail.group(0)}".lower() in keep_hyphen:
+                out = out + ln
+            else:
+                out = out[:-1] + ln
         else:
             out = (out + " " + ln).strip()
     return out
 
 
-def pages_positioned(html):
+def pages_positioned(html, repair=None):
     """UBS PDF conversions: one text per PageN container, lines in column, top, left order."""
     b = html.find("</ix:header>")
     soup = BeautifulSoup(html[b:] if b >= 0 else html, "html.parser")
@@ -78,8 +100,10 @@ def pages_positioned(html):
             left, top = float(lm.group(1)), float(tm.group(1))
             rows.append((0 if left < width / 2 else 1, top, left, line_text(d)))
         rows.sort()
-        pages.append((int(page["id"][4:]), join_lines([r[3] for r in rows])))
-    return pages
+        pages.append((int(page["id"][4:]), [r[3] for r in rows]))
+    repair = REPAIR_HYPHENS if repair is None else repair
+    keep = hyphenated_words(ln for _, rows in pages for ln in rows) if repair else frozenset()
+    return [(n, join_lines(rows, keep)) for n, rows in pages]
 
 
 def pages_split(html, pattern):

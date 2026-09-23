@@ -22,6 +22,13 @@ from phase3c_counterparts import QUARTERS, period_end, split_sentences  # noqa: 
 
 PHASE3B = ROOT / "notebooks" / "roman" / "data" / "phase3b"
 OUT = ROOT / "notebooks" / "roman" / "data" / "phase3d"
+TERMS_DIR = OUT  # units, search terms and the round-1 hash always come from here
+# --repaired: same terms on the repaired reconstruction (hyphen fix of 2026-09-23), output to its own folder,
+# so that counterparts_read.csv and the hits it was read from stay unchanged
+REPAIRED = "--repaired" in sys.argv
+if REPAIRED:
+    PHASE3B = ROOT / "notebooks" / "roman" / "data" / "phase3b_repaired"
+    OUT = ROOT / "notebooks" / "roman" / "data" / "phase3d" / "repaired"
 LONG = 500
 
 
@@ -53,8 +60,9 @@ def compile_term(t):
 
 
 def main():
-    terms_path = OUT / "search_terms.csv"
-    prev = json.loads((OUT / "run_log.json").read_text()) if (OUT / "run_log.json").exists() else {}
+    OUT.mkdir(parents=True, exist_ok=True)
+    terms_path = TERMS_DIR / "search_terms.csv"
+    prev = json.loads((TERMS_DIR / "run_log.json").read_text())
     terms_now = pd.read_csv(terms_path)
     round1 = terms_now[terms_now["round"] == 1].to_csv(index=False).encode()
     log = dict(round1_sha256=prev.get("round1_sha256", hashlib.sha256(round1).hexdigest()),
@@ -64,7 +72,7 @@ def main():
                started=datetime.now().isoformat(timespec="seconds"), report_hashes=file_hashes())
     assert hashlib.sha256(round1).hexdigest() == log["round1_sha256"], "round 1 search terms were changed"
     (OUT / "run_log.json").write_text(json.dumps(log, indent=2))
-    units = pd.read_csv(OUT / "units.csv")
+    units = pd.read_csv(TERMS_DIR / "units.csv")
     terms = pd.read_csv(terms_path)
     rs = sentences()
     rows = []
