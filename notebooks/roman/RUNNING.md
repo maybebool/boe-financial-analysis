@@ -47,3 +47,32 @@ Plan: `notebooks/roman/plans/phase_2.md`.
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03_commitments.ipynb
 
 Plan: `notebooks/roman/plans/phase_3.md`. The table for review is `notebooks/roman/data/phase3/threads.csv`.
+
+## Phase 3b, call against quarterly report (descriptive)
+
+Reads the report files in `notebooks/roman/data/reports/` (16 quarterly reports and the UBS annual reports 2023 and 2024; never modified) and the phase 3 statements.
+
+    python notebooks/roman/analysis/phase3b_reports.py   # text reconstruction, checks, retrieval
+    python notebooks/roman/analysis/phase3b_compare.py   # comparison table, every quote verified against its source
+    python -m pytest -q notebooks/roman/tests
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03b_call_vs_report.ipynb
+
+Plan: `notebooks/roman/plans/phase_3b.md`.
+
+## Phase 3c, call figures in the reports (descriptive)
+
+    python notebooks/roman/analysis/phase3c_counterparts.py   # classes A/B/C, bootstrap, sensitivities, labelling sample (GPU)
+    python -m pytest -q notebooks/roman/tests
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03c_call_figures_in_reports.ipynb
+
+Plan: `notebooks/roman/plans/phase_3c.md`.
+
+## Phase 3d, counterparts by targeted search and reading (descriptive, exploratory)
+
+    python notebooks/roman/analysis/phase3d_terms.py    # units and round-1 search terms (only before the first search)
+    python notebooks/roman/analysis/phase3d_search.py   # search all reports up to end-2024, hash log in run_log.json
+    python notebooks/roman/analysis/phase3d_read.py     # reading result, quotes verified, counts
+    python -m pytest -q notebooks/roman/tests
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03d_counterparts_read.ipynb
+
+`phase3d_terms.py` must not be rerun after the first search: it would overwrite the appended round-2 terms. Plan: `notebooks/roman/plans/phase_3d.md`. Table for review: `notebooks/roman/data/phase3d/counterparts_read.csv`.
