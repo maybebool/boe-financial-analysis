@@ -32,5 +32,10 @@ There is proven overlap with "joy" and so could they be combined into "happiness
 23/9/26
 Test theory using FinBert model and UBS data - does this reduce the information too far?
 Yes - the only sentiment that it picks up is the negative emotion in the Q&A than the presentation in Q3 2024
-
 Repeat with JPM to check effects
+
+Remove speaker names from sentence text by collecting as a list, splitting into first name & surname and removing capitals
+Add this list to the pre-processing function then removes them before creating the "cleaned_text" column
+Checked both models (Bert Emotion & FinBert) for both datasets (UBS and JPM)
+
+Saved final timeline figures but still think that there may be a better way to present this data
