@@ -18,15 +18,20 @@ P7 = ("UBS_2023-Q4_pillar3.htm", 7, "The core business-led reductions in RWA, co
       "Non-core and Legacy during 2024 and 2025, are expected to more than offset the effects of revised Basel III standards")
 P70 = ("UBS_2023-Q4_pillar3.htm", 70, "We plan to exit the exposures in Non-core and Legacy in near-to-mid term")
 
-# unit: (class in Pillar 3, borderline quote or None, comment)
+# unit: (class in Pillar 3, quote or None, comment); for class B the quote is the counterpart, for C a borderline case
 R = {
-    "T16": ("C", None, "Hits with the figure are actual EAD and LRD amounts; operational risk RWA appears only as quarterly "
-                       "movements of phase-in RWA."),
-    "T25": ("C", P70, "No forward-looking statement on capital release from NCL. The borderline sentence refers to the "
-                      "exit of securitization exposures in NCL, not to capital release; the hits with 'USD 6.0bn' "
-                      "are an actual capital return and an actual RWA decrease."),
-    "T27": ("C", P7, "The same Group-RWA sentence as in the 2023-Q4 quarterly report (phase 3d borderline case) and the "
-                     "securitization sentence (p. 70); NCL RWA appear only as actual values."),
+    "T16": ("B", P7, "B since Roman's decision of 2026-09-24 under the consistency rule: the Group-RWA sentence on the "
+                     "NCL run-down in 2024 and 2025 is forward-looking on the same run-down, without a figure. Hits with "
+                     "the figure are actual EAD and LRD amounts; operational risk RWA appears only as quarterly movements "
+                     "of phase-in RWA. Until 2026-09-24 C."),
+    "T25": ("B", P70, "B since Roman's decision of 2026-09-24 under the consistency rule: the sentence on exiting the NCL "
+                      "securitization exposures is forward-looking on the same run-down (another scope), without a "
+                      "figure. The hits with 'USD 6.0bn' are an actual capital return and an actual RWA decrease. Until "
+                      "2026-09-24 C with this sentence as borderline case."),
+    "T27": ("B", P7, "B since the consistency rule of 2026-09-24: the Group-RWA sentence on the NCL run-down in 2024 and "
+                     "2025 (the same sentence that makes T27 B in phase 3d) is forward-looking on the same run-down, "
+                     "without a figure. NCL RWA otherwise appear only as actual values. Until 2026-09-24 C with this "
+                     "sentence as borderline case."),
     "T32": ("C", None, "The 'Swiss SRB going and gone concern requirements' tables give the required going concern "
                        "capital as of each quarter end, i.e. actual requirements; no phase-in to 16.7% and no 180 "
                        "basis points."),
@@ -42,9 +47,9 @@ R = {
 # evidence in data/phase3f/roman_check/
 CHECK = "Roman 2026-09-24 (forward-filtered check): C confirmed."
 CHECKED = {
-    "T16": CHECK,
-    "T25": CHECK + " 'We plan to exit the exposures in Non-core and Legacy in near-to-mid term' (2023-Q4, p. 70) concerns securitizations only, no figure, no counterpart.",
-    "T27": CHECK + " Group-RWA sentence on the NCL run-down in 2024 and 2025 (2023-Q4, p. 7) is the same borderline case as T27 in phase 3d, no counterpart; the Basel III estimate of USD 25bn (of which 10bn in NCL, 2023-Q4) and the 'low single-digit percentage increases' (2024-Q4) concern T17.",
+    "T16": CHECK + " Roman 2026-09-24, later: B under the consistency rule, with the sentence on p. 7 (no figure).",
+    "T25": CHECK + " Roman 2026-09-24, later: B under the consistency rule, with the sentence on p. 70 (no figure). At the first check: 'We plan to exit the exposures in Non-core and Legacy in near-to-mid term' (2023-Q4, p. 70) concerns securitizations only, no figure, no counterpart.",
+    "T27": "Roman 2026-09-24 (forward-filtered check): C confirmed at first; later the same day B under the consistency rule, with the sentence on p. 7." + " Group-RWA sentence on the NCL run-down in 2024 and 2025 (2023-Q4, p. 7) is the same borderline case as T27 in phase 3d, no counterpart; the Basel III estimate of USD 25bn (of which 10bn in NCL, 2023-Q4) and the 'low single-digit percentage increases' (2024-Q4) concern T17.",
     "T32": CHECK,
     "T33": CHECK + " AT1 issued in the second half of 2024 (USD 1.6bn) is an actual value, not an issuance plan.",
     "T68": CHECK,
@@ -66,14 +71,18 @@ def main():
                    class_phase3d_all=d3.loc[unit, "class_all"], class_pillar3=cls,
                    pillar3_files=", ".join(sorted(hits[hits.unit == unit].file.unique())),
                    hits=int((hits.unit == unit).sum()), hits_with_figure=int(((hits.unit == unit) & (hits.g3 != "")).sum()),
-                   borderline_quote="", borderline_location="", comment=comment,
+                   quote_pillar3="", quote_location="", borderline_quote="", borderline_location="", comment=comment,
                    search_terms=" | ".join(f"[{t.group}] {t.term}" for t in terms[(terms.unit == unit)
                                                                                  & (terms["round"] == 1)].itertuples()),
                    checked_by_roman=CHECKED[unit])
         if q:
             f, p, text = q
             assert norm(text) in norm(pages.loc[(f, p), "text"]), (unit, "quote not found")
-            row.update(borderline_quote=text, borderline_location=f"{f}, page {p}")
+            if cls == "B":
+                row.update(quote_pillar3=text, quote_location=f"{f}, page {p}")
+            else:
+                row.update(borderline_quote=text, borderline_location=f"{f}, page {p}")
+        assert (cls == "B") == bool(row["quote_pillar3"]), (unit, "B needs a quote")
         rows.append(row)
     out = pd.DataFrame(rows)
     out.to_csv(OUT / "pillar3_read.csv", index=False)

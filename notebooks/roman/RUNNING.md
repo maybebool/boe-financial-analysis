@@ -102,3 +102,16 @@ Plan: `notebooks/roman/plans/phase_3e.md`.
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03f_pillar3.ipynb
 
 Plan: `notebooks/roman/plans/phase_3f.md`. The 2024-Q2 Pillar 3 report is added later with the same terms.
+
+## Phase 3g, FLS models against the phase 3 rules (descriptive)
+
+    python notebooks/roman/analysis/phase3g_fls.py                  # FinBERT-FLS and FLS-RoBERTa (GPU), cross-tables, set S, blind spot check
+    python notebooks/roman/analysis/phase3g_read.py terms           # reading of S, new units, search terms and their hash
+    python notebooks/roman/analysis/phase3g_read.py search          # UBS quarterly and annual reports, windows W1 and ALL
+    python notebooks/roman/analysis/phase3g_read.py pillar3 F11 F12 F22   # new UBS targets of class C in the Pillar 3 reports
+    python notebooks/roman/analysis/phase3g_read.py classify        # classes with verified quotes, updated basis
+    python notebooks/roman/analysis/phase3g_read.py checkfiles      # check files for Roman
+    python -m pytest -q notebooks/roman/tests
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03g_fls_models.ipynb
+
+Plan: `notebooks/roman/plans/phase_3g.md`. Rerunning `terms` rewrites the hash in `run_log.json`; the search terms are then those in `phase3g_read.py`. The blind spot check is in `data/labelling/phase3g_spotcheck.csv` (key in `data/phase3g/spotcheck_key.csv`).

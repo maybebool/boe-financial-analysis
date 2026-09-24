@@ -28,6 +28,10 @@ UBS23Q4_NNA = Q("UBS_2023-Q4_report.htm", 8, "with around USD 100bn of net new a
 UBS23Q4_NCL5 = Q("UBS_2023-Q4_report.htm", 8, "and a share of around 5% of Group RWA, all by the end of 2026")
 UBS23AR_FUND = Q("UBS_2023_annual_report.htm", 46, "Additionally, we expect up to USD 1bn of funding cost")
 UBS23AR_ETR = Q("UBS_2023_annual_report.htm", 106, "effective tax rate is expected to decrease towards the structural rate in subsequent years")
+UBS23AR_NCLPRIO = Q("UBS_2023_annual_report.htm", 56, "Reduce RWA and LRD, freeing up capital for the UBS Group")
+UBS23Q4_NCLRUN = Q("UBS_2023-Q4_report.htm", 47, "The core business-led reductions in RWA, coupled with the run-down of "
+                  "positions in the Non-core and Legacy business division, are expected to more than offset the effects of "
+                  "model updates and revised Basel III standards in 2024 and")
 
 # unit: genuine, reason, class W1, figure call, figure report, quote W1, class ALL, quote ALL, comment
 R = {
@@ -49,7 +53,11 @@ R = {
             Q("UBS_2023-Q2_report.htm", 8, "About half of these RWA are expected to run-off by the end of 2026"), "A",
             Q("UBS_2023-Q2_report.htm", 8, "About half of these RWA are expected to run-off by the end of 2026"),
             "Found through the search terms of T50 (the sentence contains neither the T14 phrases nor '50%')."),
-    "T16": (True, "", "C", "NCL operational risk RWA around 14bn by end-2026", "", None, "C", None, ""),
+    "T16": (True, "", "B", "NCL operational risk RWA around 14bn by end-2026", "NCL key priority: reduce RWA and LRD, no figure",
+            UBS23AR_NCLPRIO, "B", UBS23AR_NCLPRIO,
+            "B since the consistency rule of 2026-09-24 (Roman's decision): the NCL key priority 'Reduce RWA and LRD' "
+            "in the 2023 and 2024 annual reports is forward-looking on the same run-down, without the operational risk "
+            "figure. Until 2026-09-24 C."),
     "T17": (True, "", "B", "roughly 5% RWA increase from final Basel III in 2025", "USD 25bn day-1 increase",
             Q("UBS_2023_annual_report.htm", 46, "including an estimated USD 25bn day-1 increase for the finalization of Basel III in 2025"),
             "A", Q("UBS_2024-Q2_report.htm", 8, "will lead to an increase of around 5% in UBS Group risk-weighted assets"),
@@ -65,8 +73,13 @@ R = {
             Q("UBS_2023_annual_report.htm", 62, "We plan to fund this growth organically from the capital released from the unwinding of the"),
             "Changed from C to B after Roman's check (amendment of 2026-09-23). Realised later: the 2024 annual report states that NCL 'released over USD 6 billion of capital'."),
     "T26": (True, "", "A", "around 100bn NNA per annum through 2025", "around USD 100bn annually through 2025", UBS23Q4_NNA, "A", UBS23Q4_NNA, ""),
-    "T27": (True, "", "C", "NCL credit and market risk RWA substantially below 40bn by end-2024", "", None, "C", None,
-            "Broader search (2026-09-23): 2023-Q4 report p47 expects the NCL run-down to offset model and Basel III effects on Group RWA in 2024 and 2025; about Group RWA, not the NCL level, so class unchanged."),
+    "T27": (True, "", "B", "NCL credit and market risk RWA substantially below 40bn by end-2024",
+            "NCL run-down offsets Group RWA effects in 2024 and 2025, no figure", UBS23Q4_NCLRUN, "B",
+            UBS23Q4_NCLRUN,
+            "B since the consistency rule of 2026-09-24 (a forward-looking statement on the same reduction counts as B, "
+            "also with another scope or without a figure). The 2023-Q4 report (p47) and the 2023 annual report (p193) "
+            "expect the NCL run-down to offset model and Basel III effects on Group RWA in 2024 and 2025; no NCL level "
+            "and no figure. Until 2026-09-24 kept as C (borderline case)."),
     "T28": (True, "", "A", "buybacks up to 1bn in 2024", "up to USD 1bn in 2024",
             Q("UBS_2023-Q4_report.htm", 8, "In 2024, we plan to repurchase up to USD 1bn of our shares"), "A",
             Q("UBS_2023-Q4_report.htm", 8, "In 2024, we plan to repurchase up to USD 1bn of our shares"), ""),
@@ -178,9 +191,9 @@ R = {
 # Roman's check of the seven UBS target units of class C (2026-09-23), with his own search script
 CHECKED = {
     "T3": "Roman 2026-09-23: C confirmed. Programme announced before the acquisition (4Q22 call, 1.1bn); 2022 reports outside the window.",
-    "T16": "Roman 2026-09-23: C confirmed.",
+    "T16": "Roman 2026-09-23: C confirmed. Roman 2026-09-24: B under the consistency rule ('Reduce RWA and LRD, freeing up capital for the UBS Group', 2023 and 2024 annual reports).",
     "T25": "Roman 2026-09-23: B instead of C (2023 annual report, capital released from the NCL unwinding, no figure).",
-    "T27": "Roman 2026-09-23: C confirmed.",
+    "T27": "Roman 2026-09-23: C confirmed. Roman 2026-09-24: B under the consistency rule (forward-looking statement on the same reduction, other scope, no figure; 2023-Q4 report p47 and 2023 annual report p193).",
     "T32": "Roman 2026-09-23: B instead of C (2023 annual report, going concern capital requirements, phase-in end-2025 to 2030, no figure).",
     "T33": "Roman 2026-09-23: C confirmed.",
     "T68": "Roman 2026-09-23: C confirmed.",

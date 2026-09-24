@@ -36,5 +36,10 @@ def test_quotes_found_and_reports_unchanged():
     for _, x in r[r.borderline_quote != ""].iterrows():
         f, p = x.borderline_location.split(", page ")
         assert norm(x.borderline_quote) in norm(pages.loc[(f, int(p)), "text"])
+    for _, x in r.iterrows():
+        assert (x.class_pillar3 == "B") == (x.quote_pillar3 != "")
+        if x.quote_pillar3:
+            f, p = x.quote_location.split(", page ")
+            assert norm(x.quote_pillar3) in norm(pages.loc[(f, int(p)), "text"])
     log = json.loads((OUT / "run_log.json").read_text())
     assert {f: p3f.file_hash(p3f.REPORTS / f) for f in log["report_hashes"]} == log["report_hashes"]
