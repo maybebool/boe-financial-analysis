@@ -81,3 +81,7 @@ Roman checked the three new UBS targets of class C with `check_units.json` and h
 ## Amendment 2026-09-24: decisions after the check, counting rule
 
 F12 stays B. By Roman's decision under the consistency rule, T16 becomes B in phase 3d and T27 becomes B in the Pillar 3 reports of phase 3f (amendments in `phase_3d.md` and `phase_3f.md`). Updated basis of 39 UBS targets: W1 21 A, 14 B, 4 C; ALL 23 A, 12 B, 4 C. For the main finding only C ("not mentioned") and B without any figure ("mentioned without a figure") count as "figure only in the call"; B with another figure is shown separately.
+
+## Amendment 2026-09-24: result of the blind spot check
+
+Roman returned `phase3g_spotcheck.csv` with the column genuine filled and duplicate_of empty. Agreement on genuine: 9 of 10; Cohen's kappa 0, uninformative because all of Roman's labels are yes. The disagreement (6150, Roman yes, reading no) would be a duplicate of candidate 5907 and changes no new unit or class; the reading of S is not changed. The duplicate assignment is not checked by the spot check.

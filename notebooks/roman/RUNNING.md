@@ -111,6 +111,7 @@ Plan: `notebooks/roman/plans/phase_3f.md`. The 2024-Q2 Pillar 3 report is added 
     python notebooks/roman/analysis/phase3g_read.py pillar3 F11 F12 F22   # new UBS targets of class C in the Pillar 3 reports
     python notebooks/roman/analysis/phase3g_read.py classify        # classes with verified quotes, updated basis
     python notebooks/roman/analysis/phase3g_read.py checkfiles      # check files for Roman
+    python notebooks/roman/analysis/phase3g_read.py spotcheck       # after Roman's labels: comparison with the reading of S
     python -m pytest -q notebooks/roman/tests
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03g_fls_models.ipynb
 

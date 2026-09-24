@@ -6,6 +6,7 @@ Run from the repository root after phase3g_fls.py, in this order:
     python notebooks/roman/analysis/phase3g_read.py pillar3 F11 F12 F22  # amendment 1: new UBS targets of class C
     python notebooks/roman/analysis/phase3g_read.py classify  # classes with verified quotes, updated basis
     python notebooks/roman/analysis/phase3g_read.py checkfiles  # check files for Roman (new UBS C targets)
+    python notebooks/roman/analysis/phase3g_read.py spotcheck   # Roman's blind spot check against the reading of S
 Outputs in notebooks/roman/data/phase3g/. Rules as in plans/phase_3g.md.
 """
 import hashlib
@@ -479,6 +480,29 @@ def cmd_checkfiles():
     print({u: len(v["files"]) for u, v in cu.items()}, list(cu2))
 
 
+def cmd_spotcheck():
+    """Compare Roman's blind labels of the ten spot-check sentences with the reading of S (plan amendment 2)."""
+    sp = pd.read_csv(DATA / "labelling" / "phase3g_spotcheck.csv", keep_default_na=False)
+    key = pd.read_csv(OUT / "spotcheck_key.csv")
+    mine = pd.read_csv(OUT / "set_s_read.csv", keep_default_na=False)[["stmt_id", "genuine", "duplicate_of", "comment"]]
+    m = sp.merge(key, on="item_id").merge(mine, on="stmt_id", suffixes=("_roman", "_mine"))
+    assert len(m) == len(sp) == 10 and m.genuine_roman.isin(["yes", "no"]).all()
+    m["agree_genuine"] = m.genuine_roman == m.genuine_mine
+    m[["item_id", "stmt_id", "call", "quarter", "sentence", "genuine_roman", "genuine_mine", "agree_genuine",
+       "duplicate_of_roman", "duplicate_of_mine", "notes", "comment"]].to_csv(OUT / "spotcheck_comparison.csv", index=False)
+    po = m.agree_genuine.mean()
+    pr, pm = (m.genuine_roman == "yes").mean(), (m.genuine_mine == "yes").mean()
+    pe = pr * pm + (1 - pr) * (1 - pm)
+    kappa = (po - pe) / (1 - pe) if pe < 1 else float("nan")
+    out = dict(n=len(m), agree=int(m.agree_genuine.sum()), observed_agreement=po, expected_agreement=pe,
+               cohen_kappa=kappa, roman_yes=int((m.genuine_roman == "yes").sum()),
+               mine_yes=int((m.genuine_mine == "yes").sum()),
+               duplicate_of_filled_by_roman=int((m.duplicate_of_roman != "").sum()))
+    (OUT / "spotcheck_agreement.json").write_text(json.dumps(out, indent=2))
+    print(out)
+    print(m[~m.agree_genuine][["item_id", "stmt_id", "genuine_roman", "genuine_mine", "comment"]].to_string(index=False))
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "terms":
@@ -491,3 +515,5 @@ if __name__ == "__main__":
         cmd_classify()
     elif cmd == "checkfiles":
         cmd_checkfiles()
+    elif cmd == "spotcheck":
+        cmd_spotcheck()
