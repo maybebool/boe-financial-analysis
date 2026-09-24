@@ -56,3 +56,7 @@ Phase 3 makes no statistical claims. A finding is a pattern that holds up in Rom
 ## Amendment 2026-09-23 (after inspecting the first extraction, before tracking)
 
 Two parsing errors were found by reading a sample of candidates and are corrected; the candidate definition (a) to (c) is unchanged. (1) A year preceded by "from", "since", "starting" or "beginning in" is a starting point, not a horizon, and is ignored when resolving the horizon ("From 2026, our aim is to build to around 200 billion ... by 2028" now resolves to 2028, not 2026). (2) "end of the year" and "end of this year" are added to the expressions that resolve to the end of the call year. Known limitation left as it is: the metric dictionary classifies some cost-reduction targets phrased as "take out ... gross expenses" as expense guidance; Roman's review of `threads.csv` catches these.
+
+## Amendment 2026-09-24: commitment labelling not carried out
+
+Roman decided that `commitments.csv` will not be labelled. The extraction precision and recall of the phase 3 candidates are therefore **not validated**. The hand-read classification of phase 3d and Roman's check of the seven UBS targets without counterpart are unaffected; the automatic statuses of phase 3 remain unreviewed proposals.

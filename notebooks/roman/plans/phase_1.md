@@ -128,3 +128,24 @@ The release `2026-09-13` has lost every `n't` in the sentence segmentation of th
 2. The values on the corrected release are the primary results and replace the current rows of P1-1 and P1-2 in `plans/test_register.csv`, with Holm recomputed. The values on `2026-09-13` are reported next to them as a run on faulty data, whatever the new values turn out to be.
 3. There are no further changes to the detector or the splitting for the primary tests. E4 (restored contractions) becomes redundant on the corrected release and is dropped there; E1, E2, E3 and E5 are rerun unchanged as exploratory analyses.
 4. The labelling samples are drawn again from the corrected release with the same procedure and seed. The samples drawn from `2026-09-13` are superseded and are not labelled.
+
+## Amendment 2026-09-24: validation results and labelling decisions
+
+**Labelling decisions (Roman).** `deflection.csv` (180 sentences) is labelled. `question_topic.csv` will not be labelled; the capital-regulation topic label of phase 1 is therefore **not validated**.
+
+**Evaluation** as specified in the validation section of this plan (`analysis/phase1_validation.py`, outputs `data/phase1/validation_*.csv`; stratum weights N/n; kappa unweighted on the sample; bootstrap intervals added as a supplement):
+
+| | Precision | Miss share (1 − recall) | Kappa |
+|---|---|---|---|
+| UBS, primary detector | 0.45 (0.32 to 0.61) | 0.75 (0.00 to 0.91) | 0.46 |
+| JPM, primary detector | 0.59 (0.36 to 0.77) | 0.93 (0.62 to 0.97) | 0.51 |
+| UBS, phrase list only | 0.47 | 0.88 | 0.32 |
+| JPM, phrase list only | 0.57 | 0.98 | 0.21 |
+| UBS, NLI only | 0.47 | 0.78 | 0.46 |
+| JPM, NLI only | 0.60 | 0.93 | 0.50 |
+
+**Gate.** Precision is below 0.7 in both banks, so the pre-registered gate fails. The differences between the banks stay within 0.2 (precision 0.14, miss share 0.17), but the miss shares rest on three labelled deflections in the stratum "unflagged other" with weights of 45 and 62 and are very uncertain. By this plan, **P1-1 and P1-2 are reported as not interpretable**. Their values and the register are not changed.
+
+**Notes.** Roman's notes contain one "alignment wrong" (item D059, labelled 0, detector agrees) and no "uncertain" or "borderline"; a comparison of agreement for these cases is therefore not possible.
+
+**Exploratory, formed after the labels.** Weighted by strata, the labels estimate that 5.1 % of UBS and 9.3 % of JPMorgan management answer sentences are deflections (bootstrap 1.0 to 12.5 % and 1.8 to 19.5 %), against detector flag rates of 2.8 % and 1.2 %. The detector's higher rate for UBS may thus come from what the detector finds rather than from how often management deflects. This estimate is pooled by bank, not by call, and is not a test.

@@ -83,3 +83,7 @@ Computation in `analysis/phase2_novelty.py` (embeddings and novelty) and `analys
 Fixed after the results of P2-2 and E2 were seen, and therefore exploratory. P2-2 is not changed.
 
 E2 showed that management novelty is much lower in prepared remarks than in the Q&A for both banks (JPMorgan about 0.25 against 0.48), and that the share of Q&A sentences in the management total varies strongly between JPMorgan calls. The call mean of P2-2 therefore mixes content with the mix of sections. E6 recomputes the call value as the unweighted mean of two numbers, the mean novelty of management prepared-remark sentences and the mean novelty of management Q&A sentences, with the primary embeddings, reference and sampling. The slope difference (as P2-2) and the level difference (as E1) are tested with the same exact permutation over the 14 target calls (3,432 splits), two-sided, and reported with their effect sizes. E6 is not entered in the register.
+
+## Amendment 2026-09-24: novelty labelling not carried out
+
+Roman decided that `novelty.csv` will not be labelled. The novelty measure is therefore **not validated**, and the validation gate of this plan cannot be applied. P2-2 and E1 are reported with this qualification; their values and the register are not changed.
