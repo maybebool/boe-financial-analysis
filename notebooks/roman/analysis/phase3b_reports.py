@@ -39,8 +39,13 @@ TOP_RE = re.compile(r"top:\s*(-?[\d.]+)px")
 WIDTH_RE = re.compile(r"width:\s*([\d.]+)px")
 
 
+def report_files():
+    """Quarterly reports, JPMorgan supplements and UBS annual reports; the Pillar 3 reports belong to phase 3f."""
+    return [p for p in sorted(REPORTS.glob("*.htm")) if "pillar3" not in p.name]
+
+
 def file_hashes():
-    return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(REPORTS.glob("*.htm"))}
+    return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in report_files()}
 
 
 def line_text(div):
@@ -150,7 +155,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     before = file_hashes()
     pages, checks = [], []
-    for p in sorted(REPORTS.glob("*.htm")):
+    for p in report_files():
         bank, quarter = p.stem.split("_")[:2]
         if "annual" in p.stem:
             quarter = f"{quarter} annual report"

@@ -93,3 +93,12 @@ The read tables (`phase3b/comparison.csv`, `phase3d/counterparts_read.csv`) are 
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03e_disclosure_channel.ipynb
 
 Plan: `notebooks/roman/plans/phase_3e.md`.
+
+## Phase 3f, Pillar 3 reports (descriptive)
+
+    python notebooks/roman/analysis/phase3f_pillar3.py   # check files first, then reconstruction and search with phase 3d terms
+    python notebooks/roman/analysis/phase3f_read.py      # reading result, quotes verified
+    python -m pytest -q notebooks/roman/tests
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03f_pillar3.ipynb
+
+Plan: `notebooks/roman/plans/phase_3f.md`. The 2024-Q2 Pillar 3 report is added later with the same terms.
