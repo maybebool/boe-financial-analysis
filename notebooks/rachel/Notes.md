@@ -39,3 +39,7 @@ Add this list to the pre-processing function then removes them before creating t
 Checked both models (Bert Emotion & FinBert) for both datasets (UBS and JPM)
 
 Saved final timeline figures but still think that there may be a better way to present this data
+
+
+25/09/2026
+Attempt to split UBS by speaker to see who is creating the positive vibes !
