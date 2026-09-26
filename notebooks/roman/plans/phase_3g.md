@@ -85,3 +85,30 @@ F12 stays B. By Roman's decision under the consistency rule, T16 becomes B in ph
 ## Amendment 2026-09-24: result of the blind spot check
 
 Roman returned `phase3g_spotcheck.csv` with the column genuine filled and duplicate_of empty. Agreement on genuine: 9 of 10; Cohen's kappa 0, uninformative because all of Roman's labels are yes. The disagreement (6150, Roman yes, reading no) would be a duplicate of candidate 5907 and changes no new unit or class; the reading of S is not changed. The duplicate assignment is not checked by the spot check.
+
+## Amendment 2026-09-26: the Pillar 3 report as of 30 June 2024
+
+`UBS_2024-Q2_pillar3.htm` was searched for F11 and F12 with the units and terms of `check_units_2024q2.json` (phase 3g terms, hash checked) and the procedure of phase 3f; script `analysis/pillar3_2024q2.py`, output in `notebooks/roman/data/phase3g/pillar3_2024q2/`. Result: F11 and F12 are C in this report (tables with actual values and the glossary only). F22 is outside the window (from 2024-Q4). The primary results in `new_units_read.csv` are not changed; Roman's check with the same check file is pending.
+
+## Amendment 2026-09-26: Roman's independent check was incomplete, recheck
+
+The first version of Roman's `check_terms.py` showed at most 12 hits per term and file, searched the hidden Inline XBRL header together with the visible text (2023-Q2 and 2024-Q2 reports, 2023 and 2024 annual reports), and matched short acronyms tolerantly, so that "LCR" also matched across word boundaries ("financial crisis", "financial crime"). Audit with the phase 3h version (`notebooks/roman/data/phase3h/roman_check/`, hashes in `SHA256SUMS`), script `analysis/check_display_audit.py`, output `notebooks/roman/data/phase3h/display_audit.csv`:
+
+- F22, "LCR": 124 genuine hits, of which 29 were shown. Header matches filled the displayed hits in the 2023 and 2024 annual reports (19 and 14 genuine hits, none shown). Among the hits shown in all files, 29 were header matches and 74 false matches.
+- F22, "liquidity coverage ratio": 154 genuine hits, of which 115 were shown.
+- F12: 996 genuine hits for "LRD" and "leverage ratio denominator", of which 336 were shown (display limit only).
+- F11: all genuine hits shown.
+- Check of the 2024-Q2 Pillar 3 report: F12, 75 of 99 not shown.
+
+The confirmation of F22 as C and of F12 as B therefore rests on an incomplete view; F11 is unaffected. Recheck with the phase 3h version and `notebooks/roman/data/phase3g/check_units_recheck.json` (F12 and F22 over all reports phase 3g read for them, with the hit count per term and file on the pipeline text; script `analysis/recheck_units.py`). The primary values are unchanged.
+
+## Amendment 2026-09-26: recheck completed
+
+Roman repeated the check of F11, F12 and F22 with the phase 3h version of `check_terms.py` and all hits shown, filtered the output on forward-looking words, had the hits pre-sorted by machine and read the borderline cases himself (raw output with hashes in `notebooks/roman/data/phase3h/roman_check/recheck_2026-09-26/`). Result: no call figure of the three units appears in forward-looking form in any report or Pillar 3 report.
+
+- **F22:** only definitions, references and actual values, also in the 2023 and 2024 annual reports; C confirmed.
+- **F12:** no 100 billion figure; the only forward-looking sentence on the same reduction is the NCL priority "Reduce RWA and LRD ... around 5% (2024: below 5%) of Group RWA by the end of 2026" in the 2023 and 2024 annual reports, without an LRD figure; B unchanged.
+- **F11:** C unchanged.
+- **2024-Q2 Pillar 3 report:** F11 and F12 are C there as well.
+
+`checked_by_roman` is completed in `new_units_read.csv` and `pillar3_2024q2/read.csv`; the primary values are unchanged.

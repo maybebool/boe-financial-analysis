@@ -48,7 +48,7 @@ CONTEXT = [  # analyst statements that bear on a unit without stating its figure
 STRENGTH = {
     "T10": ("confirmed by Roman", "No guidance in the 2023-Q2 and 2023-Q3 reports; 2023-Q4: 'We confirm our capital guidance and aim to maintain ... around 14%'."),
     "T36": ("confirmed by Roman", "No 40% in the 2023-Q4 report and the 2023 annual report, only 'significantly higher than the Group's structural rate of 23%'; 2024-Q1: 'still expected to be around 40% by the end of 2024'."),
-    "T17": ("weak, not checked", "The 2023-Q4 report already gives the Basel III effect as USD 25bn, an equivalent quantity in another unit."),
+    "T17": ("weak, checked by Roman", "The 2023-Q4 report already gives the Basel III effect as USD 25bn, an equivalent quantity in another unit. Recheck 2026-09-26 (phase 3h tool, all hits shown, filtered on forward-looking words, hits pre-sorted by machine, borderline cases read by Roman; data/phase3h/roman_check/recheck_2026-09-26/): the hits not shown in the first check (2023 annual report) contain the USD 25bn estimate, not the 5%; the first report with 5% remains 2024-Q2."),
     "T34": ("weak, not checked", "Timing artefact: the first report is the annual report, which follows the fourth-quarter call by construction."),
     "T55": ("weak, not checked", "Wording: 'around 5%' is in the reports from 2023-Q4; only 'below 5%' appears later."),
 }

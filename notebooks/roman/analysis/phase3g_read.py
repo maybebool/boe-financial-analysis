@@ -400,6 +400,10 @@ CHECKED = {
     "F12": PRESORT + "B instead of C: 2023 and 2024 annual reports, 'Reduce RWA and LRD, freeing up capital for the UBS Group' pursues the same reduction without the 100 billion.",
     "F22": PRESORT + "C confirmed; hits are LCR tables and definitions.",
 }
+RE = "Roman, recheck 2026-09-26 (phase 3h tool, all hits shown, filtered on forward-looking words, hits pre-sorted by machine, borderline cases read by Roman; data/phase3h/roman_check/recheck_2026-09-26/): "
+CHECKED["F11"] += " " + RE + "no figure, C unchanged."
+CHECKED["F12"] += " " + RE + "no 100bn figure; the only forward-looking sentence on the same reduction is the NCL priority 'Reduce RWA and LRD ... around 5% (2024: below 5%) of Group RWA by the end of 2026' in the 2023 and 2024 annual reports, without an LRD figure; B unchanged."
+CHECKED["F22"] += " " + RE + "only definitions, references and actual values, also in the 2023 and 2024 annual reports; C confirmed."
 
 
 def norm(t):

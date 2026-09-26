@@ -54,6 +54,8 @@ CHECKED = {
     "T33": CHECK + " AT1 issued in the second half of 2024 (USD 1.6bn) is an actual value, not an issuance plan.",
     "T68": CHECK,
 }
+RECHECK = ("Roman, recheck 2026-09-26 (phase 3h tool, all hits shown, filtered on forward-looking words, hits pre-sorted by machine, borderline cases read by Roman; data/phase3h/roman_check/recheck_2026-09-26/): no figure of the six units in any Pillar 3 report; forward-looking without a figure only the NCL sentences in 2023-Q4 (p. 7 run-down in 2024 and 2025, p. 70 exit from NCL securitization exposures) and 2024-Q4 (p. 69 'in Non-core and Legacy, where we continue to exit our remaining exposures'). Classes unchanged.")
+CHECKED = {u: f"{c} {RECHECK}" for u, c in CHECKED.items()}
 
 
 def norm(t):

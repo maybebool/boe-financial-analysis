@@ -116,3 +116,12 @@ Plan: `notebooks/roman/plans/phase_3f.md`. The 2024-Q2 Pillar 3 report is added 
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03g_fls_models.ipynb
 
 Plan: `notebooks/roman/plans/phase_3g.md`. Rerunning `terms` rewrites the hash in `run_log.json`; the search terms are then those in `phase3g_read.py`. The blind spot check is in `data/labelling/phase3g_spotcheck.csv` (key in `data/phase3g/spotcheck_key.csv`).
+
+## Amendment to 3f and 3g, Pillar 3 report as of 30 June 2024
+
+    python notebooks/roman/analysis/pillar3_2024q2.py   # T16, T25, T27, T32, T33, F11, F12 in UBS_2024-Q2_pillar3.htm; output in data/phase3f/pillar3_2024q2/ and data/phase3g/pillar3_2024q2/
+
+## Audit of Roman's independent checks and recheck files (2026-09-26)
+
+    python notebooks/roman/analysis/check_display_audit.py   # genuine hits not shown by the first check tool; data/phase3h/display_audit.csv
+    python notebooks/roman/analysis/recheck_units.py         # data/phase3g/check_units_recheck.json, data/phase3e/check_units_recheck.json
