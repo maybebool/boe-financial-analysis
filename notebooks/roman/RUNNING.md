@@ -125,3 +125,14 @@ Plan: `notebooks/roman/plans/phase_3g.md`. Rerunning `terms` rewrites the hash i
 
     python notebooks/roman/analysis/check_display_audit.py   # genuine hits not shown by the first check tool; data/phase3h/display_audit.csv
     python notebooks/roman/analysis/recheck_units.py         # data/phase3g/check_units_recheck.json, data/phase3e/check_units_recheck.json
+
+## Phase 3h, reports of 2025 and 2026 (descriptive)
+
+    python notebooks/roman/analysis/phase3h_text.py     # text export (shared module report_text.py) and manifest.csv
+    python notebooks/roman/analysis/phase3h_terms.py    # a_terms.csv, outcome_terms.csv, check_units_a/b.json with pipeline_hits, deviations.csv
+    python notebooks/roman/analysis/phase3h_search.py   # hits_a.csv, hits_b.csv; refuses while the manifest is incomplete
+    python -m pytest -q notebooks/roman/tests
+
+Plan: `notebooks/roman/plans/phase_3h.md`. Accession and source URL come from `data/phase3h/sources.csv` (Roman).
+    python notebooks/roman/analysis/phase3h_read.py     # classes_a.csv, outcomes_b.csv, units_3h.csv, quotes.csv (quotes verified)
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03h_reports_2025_2026.ipynb

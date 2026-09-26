@@ -131,3 +131,36 @@ Written before any search, hashes in `run_log.json`, in the known format `{"unit
 - **Timing.** Outcomes are read at 30 June 2026, while several deadlines lie at the end of 2026 or later.
 - **Scope of statements.** The reports speak for the Group or for UBS AG, and a figure of another entity or scope is not the same commitment.
 - **Earlier phases.** The separation rule shows that the phase 3b text of the four Inline XBRL reports in `reports/` (2023-Q2 and 2024-Q2 reports, 2023 and 2024 annual reports) joins sub-lines of text blocks without a space. That text was read in phases 3b to 3g. This phase does not change those phases; the effect on them is reported separately.
+
+## Amendment 2026-09-26: execution up to the search
+
+- **Text and manifest.** `report_text.py` implements the separation rule. Lines differing from phase 3b occur only in the three Inline XBRL files (55 in the 2025-Q2 report, 206 in the 2025 annual report, 51 in the 2026-Q2 report; 231 in the 2024 annual report). Publication dates are taken from the filing signatures. The manifest is complete for the 13 files and incomplete for the 2024-Q4 report and the 2024 annual report (no accession, source URL or download date in `sources.csv`; the files themselves do not contain them). Therefore no search has been run; `phase3h_search.py` refuses while the manifest is incomplete.
+- **Terms and check files.** `a_terms.csv` (81 terms, equal to the phase 3d round-1 and phase 3g terms, hashes checked), `outcome_terms.csv` (208 terms) and `check_units_a.json` / `check_units_b.json` with `pipeline_hits` were written, and their hashes recorded in `run_log.json`.
+- **Deviation list.** `deviations.csv` has 71 term-file pairs where Roman's tool on the raw HTML counts differently from the pipeline on the export, each with its cause:
+  - **53, table or glossary layout.** The export orders table cells row by row, so that multi-line column headers are interleaved (e.g. "Non-core and Banking Management Bank Legacy"). The raw HTML keeps them together in document order. The tool therefore counts 7 to 12 more "Non-core and Legacy" per quarterly or annual report, all in table headers. This ordering comes from the phase 3b reconstruction and applied in the earlier phases as well; it affects table headers, not running text.
+  - **17, keyword window.** The same ordering changes the distance between an outcome word and its metric phrase by one or two hits.
+  - **1, hyphen repair.** One line-end "phase- in" is joined as "phasein" (2025-Q3 Pillar 3 report).
+
+## Amendment 2026-09-26: reproducible file hashes, the two 2024 files
+
+Roman added accession and source URL of the 2024-Q4 report and the 2024 annual report to `sources.csv`; their download dates are the file time stamps, 2026-09-12 and 2026-09-23. His provenance check of the same day found both files identical to a fresh download from their EDGAR URL except for a script tag that the SEC inserts before `</body>` on delivery (`<script type="text/javascript" src="/..."></script>`, with a path that differs on every download). The 2024-Q4 file has no such tag; the annual report has one with another path. Raw-file hashes are therefore not reproducible by a new download, for the 13 new reports as well. The manifest gets two further columns: `sha256_normalized`, the SHA-256 of the raw file after removing exactly this tag (regex on bytes `<script type="text/javascript"\s+src="/[^"]*"></script>`), and `sec_script_tags_removed`, the number of tags removed. `raw_sha256` stays the check that the local files are unchanged during the phase; `sha256_normalized` is the value to compare with a new download. The tag lies outside the `PageN` containers, so the text export does not depend on it.
+
+## Amendment 2026-09-26: search and reading (choices made while reading)
+
+- **Search.** It ran after the manifest was complete (`hits_a.csv`, `hits_b.csv`).
+- **Classes from other units' hits.** As in phase 3d (T14), a class may rest on a sentence found through another unit's terms. This applies to T16, found through T25 and T27, and to T32, found through the (b) term "phase-in" and the F12 hits.
+- **Consistency rule for the NCL units.** The NCL run-down sentences make T16 and T25 B, as the rule treats the run-down with another scope as the same reduction (as Roman decided for T16 in phases 3d and 3f). These are the credit and market risk RWA ambitions of below USD 8bn and around USD 4bn, and the exit of securitization exposures in the 2025-Q2 Pillar 3 report. F12 (Group LRD) stays C, because those sentences concern RWA, not LRD. This is borderline and noted in `units_3h.csv`.
+- **Status "revised" before "open".** A report that restates a changed figure for a commitment with a later deadline gets "revised", not "open" (T30, T32).
+- **Final status.** It is the status of the latest quarterly or annual report that states an outcome. The Pillar 3 reports carry none of the commitments except the phase-in of T32 and one NCL sentence, so a status of "no longer mentioned" there does not override an outcome. For T33 the final status comes from the 2024 annual report (deadline 2024).
+- **Actual values not reported.** Where the reports give no actual value of the metric (NCL operational risk RWA, HoldCo), the related reported quantity is named and marked as such.
+- **Note on T25.** The 2024 annual report, read in this phase only for T27 and T33, states that NCL "released over USD 6 billion of capital to the Group". This is recorded as a note and does not change the status of T25, which is "no longer mentioned" in the reports of 2025 and 2026.
+- **Hits only Roman's tool finds.** None of them contains a forward-looking statement on one of the units. The checked windows are glossary entries, note headings, chart labels and an outlook sentence on Group RWA model updates that the pipeline also reads.
+
+**Result.**
+
+- **(a)** No call figure of the ten units appears in a forward-looking sentence of the 13 reports (no A); there is no retrospective mention either. Five units are B: T16, T25 and T27 through the NCL run-down sentences, first 2025-Q1; T32 through the phase-in 2026 to 2030, first 2025-Q1; T30 with around USD 15bn, first 2025-Q4. T33, T68, F11, F12 and F22 are C.
+- **(b)**
+  - **Achieved:** T27 (around USD 5bn at end-2025, USD 4bn at 31 March 2026) and F22 (quarterly LCR 177.3% to 182.6%).
+  - **Revised:** T30 (around USD 15bn; USD 14.2bn incurred by 30 June 2026) and T32 (USD 6bn instead of 9bn; requirement 14.99% at end-2025).
+  - **Missed:** T33 (USD 3.5bn issued in 2024 against up to USD 2bn).
+  - **No longer mentioned:** T16, T25, T68, F11 (ratio 19.0% at 30 June 2026) and F12 (LRD USD 1,649.8bn at 30 June 2026, current FX).
