@@ -1,0 +1,4 @@
+phase,test_id,hypothesis,statistic,p_raw,p_holm
+1,P1-1,UBS deflection rate differs from JPM (call level),"mean UBS - mean JPM, deflection sentences per 100 answer sentences",0.0397824397824397,0.0795648795648794
+1,P1-2,UBS deflections concentrate more on capital regulation than JPM,"excess share of deflected segments on capital regulation, UBS minus JPM",0.1554844515548445,0.1554844515548445
+2,P2-2,UBS management novelty decays at a different rate than JPM after completion,"OLS slope of call novelty on quarter index 2023-Q2..2024-Q4, UBS minus JPM",0.013403263403263404,0.04020979020979021
