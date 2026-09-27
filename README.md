@@ -18,17 +18,6 @@ Real data is not in this repo. Exports live in the shared Drive folder.
 
 Colab users: see `TEAM.md`. Copy the setup cell into a new notebook and run it.
 
-Local users:
-
-```bash
-git clone https://github.com/YOUR-ORG/boe-group.git
-cd boe-group
-conda create -n boe-group python=3.13
-conda activate boe-group
-pip install -r requirements.txt
-python -m spacy download en_core_web_sm
-```
-
 ## Two rules
 
 Nobody parses PDFs. Analysis reads the CSV exports, never raw documents.
