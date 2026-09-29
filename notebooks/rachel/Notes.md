@@ -43,3 +43,17 @@ Saved final timeline figures but still think that there may be a better way to p
 
 25/09/2026
 Attempt to split UBS by speaker to see who is creating the positive vibes !
+Interesting to note that the CFO (Sarah Youngblood) was only present in Q2 2023, after that Todd Tuckner took over
+
+All the changes in emotion are in the presentation for the CFO rather than the Q&A suggesting it was scripted.
+The CEO is more measured across the timeline, just with an increase in sadness at the end of Q4 2024
+
+It would be interesting to look into the exact sentences to double check this
+
+29/09/2026
+Created a generic notebook that can be used for any bank
+Includes both FinBERT and BERTemotion models for a direct comparison
+Need 3rd option if possible - RoBERTa or FinBERT-Tone are options
+
+Also removed the word "question" by including it in the stopwords
+Short imperitive words (take it, stop) send BERTemotion towards "anger"
