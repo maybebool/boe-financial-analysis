@@ -2,7 +2,7 @@
 # Pinning is a no-op in Colab and forces the same versions locally.
 numpy==2.1.3
 pandas==2.2.3
-pyarrow==18.1.0
+pyarrow==23.0.1
 matplotlib==3.10.0
 seaborn==0.13.2
 scikit-learn==1.6.1
@@ -16,5 +16,15 @@ hdbscan==0.8.44
 # not preinstalled in Colab, this is the only real install
 bertopic==0.17.4
 
+# LLM analysis (Qwen, 4-bit): accelerate matches Colab, bitsandbytes is not
+# preinstalled there and needs CUDA to load a quantised model
+accelerate==1.15.0
+bitsandbytes==0.50.2
+
+# Excel export (pandas.to_excel), matches Colab
+openpyxl==3.1.5
+
 # NOT pinned on purpose: torch. Colab ships a matched CPU or CUDA build,
 # and forcing a version there breaks the packages compiled against it.
+# Listed without a version: a no-op in Colab, installed locally if missing.
+torch
