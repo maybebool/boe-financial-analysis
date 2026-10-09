@@ -52,7 +52,8 @@ def test_terms_cover_all_units_and_files():
 def test_every_passage_has_one_class():
     read = pd.read_csv(OUT / "read.csv", keep_default_na=False)
     assert read["class"].isin(r.CLASSES).all()
-    counted = read[read["class"].isin(r.CLASSES[:3])]
+    counted = read[read["class"].isin(r.CLASSES[:4])]
+    assert read.drop_duplicates("text_id").shape[0] == 768
     assert (counted.quote != "").all() and (counted.page != "").all()
     assert (counted.forward_looking == "yes").all()
 

@@ -30,8 +30,8 @@ TOOL_SHA = "c27228e8bee109eb636cdad7af4ae8cdc60273698e9fdb93ab6af726702f6e2d"
 FORWARD = re.compile(p3.FORWARD_RE.pattern[:-3] + r"|will|would|aim(s|ed|ing)?|intend(s|ed|ing)?|anticipat(e|es|ed|ing)|"
                      r"estimat(e|es|ed|ing)|ambitions?|objectives?|goals?|outlook)\b", re.I)
 CAP = 600
-CLASSES = ["same target, same unit", "same target, another unit", "same target, another figure", "result",
-           "definition or requirement", "other"]
+CLASSES = ["same target, same unit", "same target, another unit", "same target, another figure",
+           "same target, no figure", "other forward-looking target", "result", "definition or requirement", "other"]
 
 
 def sha256(path):
