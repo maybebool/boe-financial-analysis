@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------------------------------------
 # Colab environment remains the reference environment but Colab and native Intel macOS have different binary dependency constraints,
-# particularly around PyTorch, NumPy, SciPy and LLVM-dependent packages. Rather than forcing contributors to reproduce a Linux/Colab 
+# particularly around PyTorch, NumPy, SciPy and LLVM-dependent packages. Rather than forcing contributo to reproduce a Linux/Colab 
 # environment on macOS, we should maintain a platform-specific Mac requirements file that provides a tested compatible resolution. 
 # Both environments run the same application and should be validated against the same functional requirements. 
 # That gives us reproducibility without confusing platform identity with application requirements.
