@@ -146,3 +146,15 @@ Reads the old release `data/results/2026-09-23/` and the new export in `~/projec
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03i_export_check.ipynb
 
 Plan: `notebooks/roman/plans/phase_3i.md`. Outputs in `notebooks/roman/data/phase3i/` with `SHA256SUMS`.
+
+## Phase 3j, equivalent forms of the call-only figures (descriptive)
+
+    python notebooks/roman/analysis/phase3j_terms.py                 # forms.csv, check_units_3j.json (before the search)
+    cd notebooks/roman/data/phase3j && CHECK_MAX_HITS=100000 python -u ../phase3h/roman_check/check_terms.py --units check_units_3j.json > check_hits_3j.txt   # about 11 minutes
+    python notebooks/roman/analysis/phase3j_read.py hits             # hits.csv, passages.csv; checks the counts against the tool output (about 11 minutes)
+    python notebooks/roman/analysis/phase3j_reading.py               # reading_3j.csv: the reading result per passage
+    python notebooks/roman/analysis/phase3j_read.py classify         # read.csv, summary.csv, SHA256SUMS (quotes verified, pages added)
+    python -m pytest -q notebooks/roman/tests
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03j_equivalent_forms.ipynb
+
+Plan: `notebooks/roman/plans/phase_3j.md`. `phase3j_terms.py` must not be rerun after the search without rerunning the tool.
