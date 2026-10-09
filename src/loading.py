@@ -13,10 +13,13 @@ Pin the export with a date and name the file you want. The combined
 """
 from __future__ import annotations
 import pathlib
+import re
 import pandas as pd
 
 LATEST = "latest"
 RESULTS = "results"
+# Export folders are named by date; anything else in the results folder is ignored.
+EXPORT_NAME = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 # Required columns per file kind. The kind is the last part of the file name:
 # "all_utterances.csv" -> "utterances", "UBS_2023-Q1_call_sentences.csv" -> "sentences".
@@ -42,7 +45,8 @@ def _results_dir(data_dir: pathlib.Path) -> pathlib.Path:
 
 def exports(data_dir: pathlib.Path) -> list[str]:
     """Export dates available, oldest first."""
-    return sorted(p.name for p in _results_dir(data_dir).iterdir() if p.is_dir())
+    return sorted(p.name for p in _results_dir(data_dir).iterdir()
+                  if p.is_dir() and EXPORT_NAME.fullmatch(p.name))
 
 
 def resolve(data_dir: pathlib.Path, export: str,
