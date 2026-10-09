@@ -46,6 +46,19 @@ QUOTES = {
                  "FINMA’s confirmation of the capital add-ons for market share and LRD that will apply to UBS"),
     "T32_req_2025": ("UBS_2025_annual_report.htm", 157, "The total going concern capital requirements applicable are "
                      "14.99% of RWA"),
+    "F12_2024": ("UBS_2024_annual_report.htm", 169, "During 2024, the LRD decreased by USD 175.9bn to USD 1,519.5bn, "
+                 "mainly due to asset size and other movements of USD 102.3bn, as well as currency effects of USD 73.6bn"),
+    "F12_2025": ("UBS_2025_annual_report.htm", 93, "During 2025, the LRD increased by USD 103.0bn to USD 1,622.4bn, "
+                 "mainly driven by a USD 110.2bn increase from currency effects and a USD 28.8bn increase as a result of "
+                 "the implementation of the final Basel III standards, partly offset by a USD 36.1bn decrease from asset "
+                 "size and other movements"),
+    "F12_2026q1": ("UBS_2026-Q1_report.htm", 46, "the LRD increased by USD 31.0bn to USD 1,653.5bn, driven by a USD "
+                   "40.6bn increase from asset size and other movements, partly offset by a USD 9.5bn decrease from "
+                   "currency effects"),
+    "F12_2026q2": ("UBS_2026-Q2_report.htm", 50, "the LRD decreased by USD 3.7bn to USD 1,649.8bn, driven by a USD 9.4bn "
+                   "decrease from currency effects, partly offset by a USD 5.6bn increase from asset size and other "
+                   "movements"),
+    "F12_exfx": ("UBS_2026-Q2_report.htm", 50, "The LRD movements described below exclude currency effects"),
     "T32_addon_new": ("UBS_2026-Q2_report.htm", 44, "phase-in add-ons as of 1 January 2026 for RWA-based requirements "
                       "of 0.86% for increased market share (1.44% on a fully applied basis) and 0.79% for higher LRD "
                       "(1.08% on a fully applied basis)"),
@@ -236,7 +249,37 @@ def main():
             "quote": f"'{q['T32_base']}' | '{q['T32_addon_old']}' | '{q['T32_usd10']}' | '{q['T32_usd6']}' | "
                      f"'{q['T32_req_2025']}' | '{q['T32_addon_new']}'"},
     }
-    evidence = {"T16": "table 'Composition of Non-core and Legacy', RWA column, quarterly and annual reports 2025 "
+    # F12: cumulative movement of the Group LRD from asset size and other movements (currency effects excluded)
+    f12 = {"31.12.2024": -102.3, "31.12.2025": round(-102.3 - 36.1, 1),
+           "31.3.2026": round(-102.3 - 36.1 + 40.6, 1), "30.6.2026": round(-102.3 - 36.1 + 40.6 + 5.6, 1)}
+    f12_text = "; ".join(f"{d}: {v:+.1f}" for d, v in f12.items())
+    upd["F12"] = {
+        "final_status": "open",
+        "status_sequence": "2024 annual report: figure reached, reported as a result > 2025-Q1 to 2025-Q4 and 2025 "
+                           "annual report: figure reached, target not mentioned > 2026-Q1: below the figure > 2026-Q2: "
+                           "below the figure",
+        "actual_value": f"Group LRD, cumulative change from asset size and other movements since 31.12.2023, currency "
+                        f"effects excluded, in USD bn (calculated): {f12_text}; call figure: a reduction of over 100 "
+                        "at constant FX within three years",
+        "actual_quote": q["F12_2024"],
+        "actual_location": "UBS_2024_annual_report.htm, page 169",
+        "comment_b": "Version 2: the reports split the change of the Group LRD into currency effects and asset size and "
+                     "other movements ('The LRD movements described below exclude currency effects'). The second part "
+                     "corresponds to the call figure at constant FX: same quantity (Group LRD, NCL and core divisions), "
+                     "currency effects excluded. It was USD -102.3bn in 2024, so the figure of the call was reached in "
+                     "the first of three years, and USD -36.1bn in 2025. In the first half of 2026 it was USD +46.2bn, "
+                     "so the cumulative reduction stood at USD 92.2bn at 30.6.2026, below the call figure, six months "
+                     "before the end of the three years. The final Basel III standards added USD 28.8bn in 2025, "
+                     "reported separately and not included here; with them the cumulative reduction is USD 63.4bn. At "
+                     "current FX the LRD is USD 45.6bn below the level of 31.12.2023. No report links these movements "
+                     "to the target.",
+        "source": "UBS_2024_annual_report.htm; UBS_2025_annual_report.htm; UBS_2026-Q1_report.htm; "
+                  "UBS_2026-Q2_report.htm",
+        "page_or_table": "pages 169 (also 96); 93; 46; 50",
+        "quote": f"'{q['F12_2024']}' | '{q['F12_2025']}' | '{q['F12_2026q1']}' | '{q['F12_2026q2']}'"}
+    evidence = {"F12": "2024 annual report pp. 96 and 169; 2025 annual report p. 93; 2026-Q1 report p. 46; 2026-Q2 "
+                       "report p. 50",
+                "T16": "table 'Composition of Non-core and Legacy', RWA column, quarterly and annual reports 2025 "
                        "and 2026",
                 "T25": "2024 annual report pp. 26 and 224; 2025 annual report p. 26",
                 "T27": "table 'Composition of Non-core and Legacy', 2024-Q4 report and 2024 annual report",
