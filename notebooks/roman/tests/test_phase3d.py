@@ -41,7 +41,7 @@ def test_round1_terms_unchanged_and_reports_unchanged():
 
 
 def test_sort_order_checked_units_first():
-    # the seven UBS target units that were class C before Roman's check stay at the top
+    # the seven UBS target units that were class C before the independent manual check stay at the top
     df = pd.read_csv(OUT / "counterparts_read.csv", keep_default_na=False)
     first = df.unit.isin(p3d.CHECKED)
     n = int(first.sum())

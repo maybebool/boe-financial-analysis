@@ -152,7 +152,7 @@ def find_page(pages, file, quote):
 
 def classify():
     p = pd.read_csv(OUT / "passages.csv", keep_default_na=False)
-    r = pd.read_csv(OUT / "reading_3j.csv", keep_default_na=False)       # my reading: one row per distinct passage
+    r = pd.read_csv(OUT / "reading_3j.csv", keep_default_na=False)       # the reading result: one row per distinct passage
     if set(p.text_id) != set(r.text_id) or not r["class"].isin(CLASSES).all():
         raise SystemExit("reading_3j.csv does not cover the passages or uses an unknown class")
     pages = page_texts()

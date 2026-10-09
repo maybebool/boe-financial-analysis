@@ -1,7 +1,7 @@
 """Phase 3j: the reading result, one row per unit and distinct passage (complete reading).
 
 Run from the repository root, after `phase3j_read.py hits`: python notebooks/roman/analysis/phase3j_reading.py
-Reads judgments_full.csv, my judgment for each of the 768 distinct passages, each read in full, and writes
+Reads judgments_full.csv, the judgment for each of the 768 distinct passages, each read in full, and writes
 reading_3j.csv, the input of `phase3j_read.py classify`, and reading_comparison.csv, the comparison with the first
 reading (reading_3j_first.csv: sentence-level reading with a wording rule for the classes that do not count).
 

@@ -44,7 +44,7 @@ READ = {
 }
 
 
-# Roman's check of the 2024-Q2 report, repeated with the phase 3h tool (2026-09-26)
+# Independent manual check of the 2024-Q2 report, repeated with the phase 3h tool (2026-09-26)
 CHECKED = "Roman 2026-09-26 (phase 3h tool, all hits shown, filtered on forward-looking words; data/phase3h/roman_check/recheck_2026-09-26/): no figure and no forward-looking sentence on the same reduction in this report; C confirmed."
 
 

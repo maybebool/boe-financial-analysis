@@ -44,7 +44,7 @@ CONTEXT = [  # analyst statements that bear on a unit without stating its figure
 ]
 
 
-# Roman's check of part 2 (2026-09-24, evidence in data/phase3e/roman_check/) and the strength of each case
+# Independent manual check of part 2 (2026-09-24, evidence in data/phase3e/roman_check/) and the strength of each case
 STRENGTH = {
     "T10": ("confirmed by Roman", "No guidance in the 2023-Q2 and 2023-Q3 reports; 2023-Q4: 'We confirm our capital guidance and aim to maintain ... around 14%'."),
     "T36": ("confirmed by Roman", "No 40% in the 2023-Q4 report and the 2023 annual report, only 'significantly higher than the Group's structural rate of 23%'; 2024-Q1: 'still expected to be around 40% by the end of 2024'."),

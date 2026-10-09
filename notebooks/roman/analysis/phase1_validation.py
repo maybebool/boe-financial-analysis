@@ -1,4 +1,4 @@
-"""Phase 1 validation: Roman's labels of deflection.csv against the detectors, with the pre-registered gate.
+"""Phase 1 validation: the manual labels of deflection.csv against the detectors, with the pre-registered gate.
 
 Run from the repository root: python notebooks/roman/analysis/phase1_validation.py
 Estimation as in plans/phase_1.md: every sampled sentence carries the weight N_stratum / n_stratum of its stratum;

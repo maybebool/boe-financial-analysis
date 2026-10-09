@@ -1,8 +1,8 @@
-"""Audit of Roman's independent checks in phases 3d to 3g: which genuine hits did the first version of check_terms.py
+"""Audit of the independent checks in phases 3d to 3g: which genuine hits did the first version of check_terms.py
 not show?
 
 Run from the repository root: python notebooks/roman/analysis/check_display_audit.py
-Both versions of Roman's tool are copied to a temporary directory and imported from there; the roman_check folders
+Both versions of the check tool are copied to a temporary directory and imported from there; the roman_check folders
 are only read. "Genuine" hits are the hits of the phase 3h version (ix:header removed, short upper-case acronyms as
 whole words, other terms tolerant) in the visible text. A genuine hit counts as shown if it overlaps one of the hits
 that the first version displayed (the first MAX_HITS = 12 per term and file, in text including the ix:header, with

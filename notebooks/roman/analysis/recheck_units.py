@@ -1,4 +1,4 @@
-"""Check files for Roman's recheck of phases 3e and 3g with the phase 3h version of check_terms.py.
+"""Check files for the recheck of phases 3e and 3g with the phase 3h version of check_terms.py.
 
 Run from the repository root: python notebooks/roman/analysis/recheck_units.py
 Writes data/phase3g/check_units_recheck.json (F12, F22: all reports phase 3g read for the unit) and

@@ -27,7 +27,7 @@ UNITS = ["T16", "T25", "T27", "T32", "T33", "T68"]
 FIRST_QUARTER = {"T16": "2023-Q3", "T25": "2023-Q4", "T27": "2023-Q4", "T32": "2023-Q4", "T33": "2023-Q4",
                  "T68": "2024-Q4"}
 PILLAR3 = ["2023-Q3", "2023-Q4", "2024-Q1", "2024-Q2", "2024-Q3", "2024-Q4"]
-PENDING = {"2024-Q2"}  # filed 23 August 2024, added later by Roman
+PENDING = {"2024-Q2"}  # filed 23 August 2024, added later
 
 
 def pfile(q):
@@ -57,7 +57,7 @@ def main():
     r1 = terms[terms["round"] == 1].to_csv(index=False).encode()
     assert hashlib.sha256(r1).hexdigest() == log3d["round1_sha256"], "round 1 search terms were changed"
 
-    # check files for Roman, written before any search
+    # check files for the independent check, written before any search
     cu = {u: {"files": [pfile(q) for q in window(u)], "terms": check_terms(terms, u)} for u in UNITS}
     cu = {u: v for u, v in cu.items() if v["files"]}
     cu2 = {u: {"files": [pfile(q) for q in window(u, available=False)], "terms": check_terms(terms, u)}

@@ -1,11 +1,11 @@
-"""Phase 3h, step 2: search terms for (a) and (b), check files for Roman with pipeline hit counts, deviation list.
+"""Phase 3h, step 2: search terms for (a) and (b), check files for the independent check with pipeline hit counts, deviation list.
 
 Run from the repository root after phase3h_text.py: python notebooks/roman/analysis/phase3h_terms.py
 - a_terms.csv: the phase 3d round-1 terms (T16, T25, T27, T30, T32, T33, T68) and the phase 3g terms (F11, F12, F22),
   unchanged; both source hashes are checked.
 - outcome_terms.csv: the (b) terms fixed in plans/phase_3h.md.
 - check_units_a.json, check_units_b.json: known format plus "pipeline_hits" [[file, term, near, hits], ...], counted
-  on the text export with the matching rule of Roman's phase 3h tool (copied to a temporary directory).
+  on the text export with the matching rule of the phase 3h check tool (copied to a temporary directory).
 - deviations.csv: every term and file where the tool's count on the raw HTML differs from the pipeline count.
 Hashes of all written files go into run_log.json before any search.
 """
@@ -101,7 +101,7 @@ def cause(r):
 
 
 def rel(p):
-    """File name relative to data/reports/ (Roman's tool)."""
+    """File name relative to data/reports/ (the check tool)."""
     return p.name if p.parent.name == "reports" else f"../{p.parent.name}/{p.name}"
 
 

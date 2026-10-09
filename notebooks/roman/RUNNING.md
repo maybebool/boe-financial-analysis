@@ -87,7 +87,7 @@ The read tables (`phase3b/comparison.csv`, `phase3d/counterparts_read.csv`) are 
 
 ## Phase 3e, disclosure channel (descriptive)
 
-    python notebooks/roman/analysis/phase3e_terms.py     # check terms for Roman, written before any search
+    python notebooks/roman/analysis/phase3e_terms.py     # check terms for the independent check, written before any search
     python notebooks/roman/analysis/phase3e_channel.py   # mentions, first mentions, call-first units
     python -m pytest -q notebooks/roman/tests
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03e_disclosure_channel.ipynb
@@ -110,8 +110,8 @@ Plan: `notebooks/roman/plans/phase_3f.md`. The 2024-Q2 Pillar 3 report is added 
     python notebooks/roman/analysis/phase3g_read.py search          # UBS quarterly and annual reports, windows W1 and ALL
     python notebooks/roman/analysis/phase3g_read.py pillar3 F11 F12 F22   # new UBS targets of class C in the Pillar 3 reports
     python notebooks/roman/analysis/phase3g_read.py classify        # classes with verified quotes, updated basis
-    python notebooks/roman/analysis/phase3g_read.py checkfiles      # check files for Roman
-    python notebooks/roman/analysis/phase3g_read.py spotcheck       # after Roman's labels: comparison with the reading of S
+    python notebooks/roman/analysis/phase3g_read.py checkfiles      # check files for the independent check
+    python notebooks/roman/analysis/phase3g_read.py spotcheck       # after the blind labels: comparison with the reading of S
     python -m pytest -q notebooks/roman/tests
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03g_fls_models.ipynb
 
@@ -121,7 +121,7 @@ Plan: `notebooks/roman/plans/phase_3g.md`. Rerunning `terms` rewrites the hash i
 
     python notebooks/roman/analysis/pillar3_2024q2.py   # T16, T25, T27, T32, T33, F11, F12 in UBS_2024-Q2_pillar3.htm; output in data/phase3f/pillar3_2024q2/ and data/phase3g/pillar3_2024q2/
 
-## Audit of Roman's independent checks and recheck files (2026-09-26)
+## Audit of the independent checks and recheck files (2026-09-26)
 
     python notebooks/roman/analysis/check_display_audit.py   # genuine hits not shown by the first check tool; data/phase3h/display_audit.csv
     python notebooks/roman/analysis/recheck_units.py         # data/phase3g/check_units_recheck.json, data/phase3e/check_units_recheck.json
@@ -133,7 +133,7 @@ Plan: `notebooks/roman/plans/phase_3g.md`. Rerunning `terms` rewrites the hash i
     python notebooks/roman/analysis/phase3h_search.py   # hits_a.csv, hits_b.csv; refuses while the manifest is incomplete
     python -m pytest -q notebooks/roman/tests
 
-Plan: `notebooks/roman/plans/phase_3h.md`. Accession and source URL come from `data/phase3h/sources.csv` (Roman).
+Plan: `notebooks/roman/plans/phase_3h.md`. Accession and source URL come from `data/phase3h/sources.csv` (entered manually).
     python notebooks/roman/analysis/phase3h_read.py     # classes_a.csv, outcomes_b.csv, units_3h.csv, quotes.csv (quotes verified)
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03h_reports_2025_2026.ipynb
 

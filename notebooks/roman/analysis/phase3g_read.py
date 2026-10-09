@@ -5,8 +5,8 @@ Run from the repository root after phase3g_fls.py, in this order:
     python notebooks/roman/analysis/phase3g_read.py search    # UBS quarterly and annual reports, windows W1 and ALL
     python notebooks/roman/analysis/phase3g_read.py pillar3 F11 F12 F22  # amendment 1: new UBS targets of class C
     python notebooks/roman/analysis/phase3g_read.py classify  # classes with verified quotes, updated basis
-    python notebooks/roman/analysis/phase3g_read.py checkfiles  # check files for Roman (new UBS C targets)
-    python notebooks/roman/analysis/phase3g_read.py spotcheck   # Roman's blind spot check against the reading of S
+    python notebooks/roman/analysis/phase3g_read.py checkfiles  # check files for the independent check (new UBS C targets)
+    python notebooks/roman/analysis/phase3g_read.py spotcheck   # blind spot check against the reading of S
 Outputs in notebooks/roman/data/phase3g/. Rules as in plans/phase_3g.md.
 """
 import hashlib
@@ -391,8 +391,8 @@ CLS = {
 }
 
 
-# Roman's check (2026-09-24) of the three new UBS targets of class C with check_units.json and his own search script;
-# the hits were pre-sorted by machine per unit, Roman read the borderline cases himself plus a sample of the
+# Independent manual check (2026-09-24) of the three new UBS targets of class C with check_units.json and a separate search script;
+# the hits were pre-sorted by machine per unit, the borderline cases were read manually plus a sample of the
 # pre-sorting. Evidence in data/phase3g/roman_check/.
 PRESORT = "Roman 2026-09-24: hits pre-sorted by machine per unit, only the borderline cases (and a sample of the pre-sorting) read by Roman. "
 CHECKED = {
@@ -464,7 +464,7 @@ def cmd_classify():
 
 
 def cmd_checkfiles():
-    """Check files for Roman for the new UBS targets of class C, in the format of phase 3f: all UBS quarterly and
+    """Check files for the independent check of the new UBS targets of class C, in the format of phase 3f: all UBS quarterly and
     annual reports (window ALL) and the available Pillar 3 reports of the unit's window; the 2024-Q2 Pillar 3 report
     in a file of its own. Terms: each phrase alone, each figure with the unit's first phrase nearby."""
     r = pd.read_csv(OUT / "new_units_read.csv", keep_default_na=False)
@@ -485,7 +485,7 @@ def cmd_checkfiles():
 
 
 def cmd_spotcheck():
-    """Compare Roman's blind labels of the ten spot-check sentences with the reading of S (plan amendment 2)."""
+    """Compare the blind labels of the ten spot-check sentences with the reading of S (plan amendment 2)."""
     sp = pd.read_csv(DATA / "labelling" / "phase3g_spotcheck.csv", keep_default_na=False)
     key = pd.read_csv(OUT / "spotcheck_key.csv")
     mine = pd.read_csv(OUT / "set_s_read.csv", keep_default_na=False)[["stmt_id", "genuine", "duplicate_of", "comment"]]

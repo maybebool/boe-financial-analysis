@@ -3,8 +3,8 @@ the 2024-Q4 report and the 2024 annual report.
 
 Run from the repository root: python notebooks/roman/analysis/phase3h_text.py
 Writes notebooks/roman/data/phase3h/text/<file>.txt, manifest.csv and run_log.json (raw hashes, time). Accession and
-source URL come from data/phase3h/sources.csv (Roman); the download date of the 13 files is 2026-09-26 (plan), of the
-two 2024 files the file time stamps given by Roman. The script reports incomplete manifest rows; phase3h_search.py
+source URL come from data/phase3h/sources.csv (entered manually); the download date of the 13 files is 2026-09-26 (plan), of the
+two 2024 files the file time stamps, entered manually. The script reports incomplete manifest rows; phase3h_search.py
 refuses to run while any row is incomplete.
 """
 import json
@@ -23,7 +23,7 @@ OUT = DATA / "phase3h"
 NEW = DATA / "reports_2025_2026"
 OLD_FOR_B = [DATA / "reports" / "UBS_2024-Q4_report.htm", DATA / "reports" / "UBS_2024_annual_report.htm"]
 DOWNLOAD_DATE = "2026-09-26"
-DOWNLOAD_DATES_2024 = {"UBS_2024-Q4_report.htm": "2026-09-12", "UBS_2024_annual_report.htm": "2026-09-23"}  # Roman
+DOWNLOAD_DATES_2024 = {"UBS_2024-Q4_report.htm": "2026-09-12", "UBS_2024_annual_report.htm": "2026-09-23"}  # entered manually
 
 
 def files():

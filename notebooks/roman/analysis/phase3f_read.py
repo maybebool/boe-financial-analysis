@@ -42,7 +42,7 @@ R = {
 }
 
 
-# Roman's check (2026-09-24): his search script on the five files of check_units.json, output filtered on
+# Independent manual check (2026-09-24): a separate search script on the five files of check_units.json, output filtered on
 # forward-looking words (expect, plan to, we plan, aim, target, by the end of, intend, will be, ambition);
 # evidence in data/phase3f/roman_check/
 CHECK = "Roman 2026-09-24 (forward-filtered check): C confirmed."

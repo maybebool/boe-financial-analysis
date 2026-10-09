@@ -188,7 +188,7 @@ R = {
 }
 
 
-# Roman's check of the seven UBS target units of class C (2026-09-23), with his own search script
+# Independent manual check of the seven UBS target units of class C (2026-09-23), with a separate search script
 CHECKED = {
     "T3": "Roman 2026-09-23: C confirmed. Programme announced before the acquisition (4Q22 call, 1.1bn); 2022 reports outside the window.",
     "T16": "Roman 2026-09-23: C confirmed. Roman 2026-09-24: B under the consistency rule ('Reduce RWA and LRD, freeing up capital for the UBS Group', 2023 and 2024 annual reports).",
@@ -247,7 +247,7 @@ def main():
             assert (cls == "C") == (q1 is None) and (cls_all == "C") == (qa is None), u.unit
         rows.append(row)
     df = pd.DataFrame(rows)
-    # the block of UBS targets checked by Roman stays first
+    # the block of UBS targets checked independently stays first
     df["_block"] = [0 if u in CHECKED else
                     1 if (b == "UBS" and t == "target") else 2 if b == "UBS" else 3
                     for u, b, t in zip(df.unit, df.bank, df.type)]
