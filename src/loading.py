@@ -110,7 +110,7 @@ def load(data_dir: pathlib.Path, filename: str, export: str = LATEST,
     if missing:
         raise ValueError(
             f"[CONTRACT] {path.name} is missing columns {missing}. "
-            "Ask Roman which export this notebook should use."
+            "Ask the project team which export this notebook should use."
         )
     print(f"loaded {path.name}  {len(df)} rows")
     return df
