@@ -13,10 +13,10 @@ local machine without Google Drive.
 | `src/` | shared loading code and the data preparation pipeline |
 | `notebooks/env_cell.py` | environment check used by the setup cell of every notebook |
 | `notebooks/00_data_preparation/00_upload_and_clean_csv.ipynb` | data preparation: exploration of the export, structuring pipeline and comparison of its output with the supplied structured files |
-| `notebooks/01_sentiment_classification/v3_sentiment_classification.ipynb` | sentiment and emotion classification, topics of the classified sentences |
-| `notebooks/02_topic_modelling/angelo_a3.ipynb` | topic models, themes and semantic drift |
-| `notebooks/03_analyst_question_topics/BOE_A3_D6.ipynb` | analyst question topics and deal attention |
-| `notebooks/04_llm_risk_signals/inessa_llm_analysis_30_sept.ipynb` | LLM analysis of merger-related Q&A |
+| `notebooks/01_sentiment_classification/sentiment_classification.ipynb` | sentiment and emotion classification, topics of the classified sentences |
+| `notebooks/02_topic_modelling/topic_modelling.ipynb` | topic models, themes and semantic drift |
+| `notebooks/03_analyst_question_topics/analyst_question_topics.ipynb` | analyst question topics and deal attention |
+| `notebooks/04_llm_risk_signals/llm_risk_signals.ipynb` | LLM analysis of merger-related Q&A |
 | `notebooks/05_call_only_targets/` | figures stated only in the calls: five notebooks, `README.md` with the findings, helper module and exports |
 | `data/results/2026-09-30/` | data export of 30 September 2026 and the structured files derived from it |
 | `data/call_only_targets/` | result files read by the notebooks of section 05 |
@@ -37,13 +37,13 @@ local machine without Google Drive.
 0. `00_upload_and_clean_csv.ipynb` (optional): rebuilds the structured files and
    checks them against the supplied files. The other notebooks read the supplied
    files, so this step can be skipped.
-1. `v3_sentiment_classification.ipynb`, once with `bank_name = 'UBS'` and once with
+1. `sentiment_classification.ipynb`, once with `bank_name = 'UBS'` and once with
    `bank_name = 'JPM'` (the cell under "Choose Bank"). Each run writes
    `data/sentiment_classification_output_<bank>.csv`. Both files are already
    included, so this step can be skipped.
-2. `angelo_a3.ipynb`, which reads the two label files in section 6, and
-   `BOE_A3_D6.ipynb`.
-3. `inessa_llm_analysis_30_sept.ipynb` does not depend on the other notebooks and
+2. `topic_modelling.ipynb`, which reads the two label files in section 6, and
+   `analyst_question_topics.ipynb`.
+3. `llm_risk_signals.ipynb` does not depend on the other notebooks and
    can run at any time.
 4. `notebooks/05_call_only_targets/`: `00_get_reports.ipynb` (optional), then
    `01_call_targets.ipynb` to `04_reports_2025_2026.ipynb` in the order of their
@@ -53,7 +53,7 @@ local machine without Google Drive.
 
 - Internet access on the first run: the models are downloaded from the Hugging
   Face Hub and the sentiment notebook downloads NLTK resources.
-- An NVIDIA GPU with CUDA for the model part of `inessa_llm_analysis_30_sept.ipynb`
+- An NVIDIA GPU with CUDA for the model part of `llm_risk_signals.ipynb`
   (from the cell "SWITCH TO GPU" onwards). The cells before it run on a CPU. All
   other notebooks run on a CPU; a GPU only makes them faster.
 
@@ -91,10 +91,10 @@ the rules fixed in advance.
   variable `SEC_USER_AGENT`.
 - No GPU is needed; the five notebooks run in under a minute.
 
-## Note on section 6 of `angelo_a3.ipynb`
+## Note on section 6 of `topic_modelling.ipynb`
 
 The label files in `data/` are the output of version 3 of the sentiment notebook.
-The saved outputs of section 6 in `angelo_a3.ipynb` were produced with the labels
+The saved outputs of section 6 in `topic_modelling.ipynb` were produced with the labels
 of an earlier version and are being updated to the version 3 labels. Until then,
 a fresh run of section 6 gives values that differ from the saved outputs.
 
