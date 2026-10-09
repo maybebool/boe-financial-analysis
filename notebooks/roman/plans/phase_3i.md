@@ -78,3 +78,11 @@ A source statement that is *found, other wording* does not by itself change the 
 - The comparison is on wording. A sentence whose wording is unchanged but whose position, `sentence_id` or neighbours changed counts as the same; the old and new keys are recorded.
 - Splitting changes can move a figure and its horizon into different sentences. Such a statement can drop out of the rule candidates or enter them without any change in what was said; the alignment in `only_new_for_reading.csv` and `only_old.csv` is meant to make this visible.
 - The classes A, B and C of the 39 targets rest on the reports and on one reader. This phase does not re-read them.
+
+## Amendment of 2026-10-09, after the result
+
+Written after steps 1 and 2 had run; the plan above is unchanged (SHA-256 before this amendment: de4e869b…, commit b1686e7).
+
+- **Empty difference table.** No sentence differed, so the first run wrote `sentence_diff.csv` without a header. The script now writes the header also for an empty table and was run a second time; all counts are the same.
+- **Additional exact comparison (not in the plan, exploratory).** The notebook also compares the raw files of the window on the sentence key without any normalisation, and the utterance text. It further lists the calls whose sentence counts differ between the exports outside the window. Neither enters the decision rule.
+- **Result.** Sentences 4,175 old and new, all the same; utterances 334 and 334. All 39 source statements found with the same wording, speaker and figures. Rule candidates 105 and 105, S 68 and 68, FinBERT-FLS label equal for all 3,177 statements. No statement only new, none only old. By the decision rule the finding holds; the count of 9, with T30 separate, is unchanged. Outside the window, the eight JPMorgan earnings calls have 3 to 8 sentences fewer in the new export; this was not examined.

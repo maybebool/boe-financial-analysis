@@ -136,3 +136,13 @@ Plan: `notebooks/roman/plans/phase_3g.md`. Rerunning `terms` rewrites the hash i
 Plan: `notebooks/roman/plans/phase_3h.md`. Accession and source URL come from `data/phase3h/sources.csv` (Roman).
     python notebooks/roman/analysis/phase3h_read.py     # classes_a.csv, outcomes_b.csv, units_3h.csv, quotes.csv (quotes verified)
     jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03h_reports_2025_2026.ipynb
+
+## Phase 3i, control run on the export of 2026-09-30 (descriptive)
+
+Reads the old release `data/results/2026-09-23/` and the new export in `~/projects/earnings-call-nlp-pipeline/exports/2026-09-30/` (checked against `notebooks/final/data/results/2026-09-30/`); `RELEASE_DIR` is not changed.
+
+    python notebooks/roman/analysis/phase3i_check.py   # export comparison, 39 source statements, rules and FinBERT-FLS on the new export (GPU)
+    python -m pytest -q notebooks/roman/tests
+    jupyter nbconvert --to notebook --execute --inplace notebooks/roman/03i_export_check.ipynb
+
+Plan: `notebooks/roman/plans/phase_3i.md`. Outputs in `notebooks/roman/data/phase3i/` with `SHA256SUMS`.
