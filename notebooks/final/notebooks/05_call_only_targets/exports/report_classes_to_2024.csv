@@ -1,0 +1,40 @@
+unit,call,figure_call,class_to_2024,report_status,figure_report,file,page
+T16,2023-Q3,NCL operational risk RWA around 14bn by end-2026,B,no figure,"NCL key priority: reduce RWA and LRD, no figure",UBS_2023_annual_report.htm,56
+T25,2023-Q4,NCL capital release over 6bn by end-2026,B,no figure,"capital released from the NCL unwinding, no figure",UBS_2023_annual_report.htm,62
+T27,2023-Q4,NCL credit and market risk RWA substantially below 40bn by end-2024,B,no figure,"NCL run-down offsets Group RWA effects in 2024 and 2025, no figure",UBS_2023-Q4_report.htm,47
+T32,2023-Q4,going-concern requirement +180bp to 16.7% between 2026 and 2030,B,another figure,"around USD 10bn added to the tier 1 capital requirement when fully phased in (2024-Q1 report, p. 42)",UBS_2023_annual_report.htm,186
+T33,2023-Q4,AT1 issuance up to 2bn in 2024,C,not mentioned,,,
+T68,2024-Q4,Group HoldCo around 90bn by end-2025,C,not mentioned,,,
+T10,2023-Q2,CET1 ratio around 14% over the medium term,A,same figure,around 14% throughout the integration timeline,UBS_2023-Q4_report.htm,7
+T12,2023-Q2,over 3bn exit-rate saves by end-2023,B,another figure,over USD 10bn by end-2026,UBS_2023-Q2_report.htm,8
+T13,2023-Q2,over 3bn exit-rate saves by end-2023,B,another figure,over USD 10bn by end-2026,UBS_2023-Q2_report.htm,8
+T9,2023-Q2,cost/income ratio below 70% in 2026,A,same figure,less than 70% by end-2026,UBS_2023-Q2_report.htm,8
+T14,2023-Q3,NCL reduction of around 50% by end-2026,A,same figure,about half of NCL RWA to run off by end-2026,UBS_2023-Q2_report.htm,8
+T17,2023-Q3,roughly 5% RWA increase from final Basel III in 2025,A,same figure,USD 25bn day-1 increase,UBS_2024-Q2_report.htm,8
+T18,2023-Q3,RoCET1 around 15% and C/I below 70% by end-2026,A,same figure,around 15% RoCET1 in 2026,UBS_2023-Q2_report.htm,8
+T24,2023-Q4,around 13bn gross cost reductions by end-2026,A,same figure,approximately USD 13bn by end-2026,UBS_2023-Q4_report.htm,7
+T26,2023-Q4,around 100bn NNA per annum through 2025,A,same figure,around USD 100bn annually through 2025,UBS_2023-Q4_report.htm,8
+T28,2023-Q4,buybacks up to 1bn in 2024,A,same figure,up to USD 1bn in 2024,UBS_2023-Q4_report.htm,8
+T29,2023-Q4,more than 2bn further gross exit-rate saves by end-2024,B,another figure,around 45% of cumulative reductions by end-2024,UBS_2023_annual_report.htm,29
+T30,2023-Q4,integration-related expenses around 13bn by end-2026,B,separate,no total; estimate to be revised,UBS_2023-Q2_report.htm,8
+T31,2023-Q4,NCL 2024 operating expenses and pre-tax loss around 4bn,B,another figure,NCL loss below USD 1bn exit rate by end-2026,UBS_2023-Q4_report.htm,8
+T34,2023-Q4,funding cost saves up to 1bn by 2026,A,same figure,up to USD 1bn of funding cost savings by 2026,UBS_2023_annual_report.htm,46
+T35,2023-Q4,"Group RWA down 35bn over three years, freeing around 5bn CET1",B,another figure,Group RWA around USD 510bn by end-2026,UBS_2023-Q4_report.htm,7
+T36,2023-Q4,effective tax rate around 40% by end-2024,A,same figure,tax rate to decrease towards the structural 23%,UBS_2024-Q1_report.htm,18
+T40,2024-Q1,NCL RWA around 5% of Group by end-2026,A,same figure,around 5% of Group RWA by end-2026,UBS_2023-Q4_report.htm,8
+T42,2024-Q1,another 1.5bn gross cost saves by end-2024,A,same figure,USD 1.5bn additional in the remainder of 2024,UBS_2024-Q1_report.htm,7
+T50,2024-Q2,NCL around 5% of Group RWA by 2026,A,same figure,around 5% of Group RWA by end-2026,UBS_2023-Q4_report.htm,8
+T51,2024-Q2,"transaction to reduce RWA by around 1.3bn, LRD by 1.7bn",A,same figure,"RWA around USD 1.3bn, LRD around USD 1.7bn",UBS_2024-Q2_report.htm,8
+T53,2024-Q3,cost/income ratio under 70% by end-2026,A,same figure,less than 70% by end-2026,UBS_2023-Q2_report.htm,8
+T55,2024-Q3,NCL below 5% of Group RWA by end-2026,A,same figure,below 5% of Group RWA by end-2026,UBS_2024_annual_report.htm,52
+T64,2024-Q4,effective tax rate around 20% for 2025,B,another figure,tax rate to decrease towards the structural 23%,UBS_2023_annual_report.htm,106
+T65,2024-Q4,NNA around 100bn for 2025,A,same figure,around USD 100bn of NNA in 2025,UBS_2023-Q4_report.htm,8
+T67,2024-Q4,P&C cost/income below 50% and pre-tax RoE near 20% by end-2026,A,same figure,P&C cost / income below 50% by end-2026,UBS_2023-Q4_report.htm,8
+F06,2023-Q4,"GWM pre-tax margins above 40% in Switzerland, EMEA and APAC",A,same figure,,UBS_2023_annual_report.htm,28
+F07,2023-Q4,GWM underlying cost/income ratio below 70%,A,same figure,,UBS_2023-Q4_report.htm,8
+F08,2023-Q4,Investment Bank around 15% return on attributed equity over the cycle,A,same figure,,UBS_2023-Q4_report.htm,8
+F09,2023-Q4,Investment Bank no more than 25% of Group RWA,A,same figure,,UBS_2023-Q4_report.htm,8
+F11,2023-Q4,going concern capital ratio around 18% by building out AT1,C,not mentioned,,,
+F12,2023-Q4,leverage ratio denominator down by over 100bn over three years,B,no figure,,UBS_2023_annual_report.htm,56
+F21,2024-Q4,UBS AG standalone CET1 capital ratio 12.5% to 13% for the foreseeable future,A,same figure,,UBS_2024_annual_report.htm,59
+F22,2024-Q4,LCR below the 4Q24 level of 188% going forward,C,not mentioned,,,
