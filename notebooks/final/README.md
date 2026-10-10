@@ -29,8 +29,9 @@ local machine without Google Drive.
 2. Create a fresh environment and install the pinned packages:
    `pip install -r requirements.txt`
 3. Open the notebooks from this folder in Jupyter, VS Code or PyCharm and run them
-   locally, not in Colab. The first cell of every notebook finds this folder by
-   looking for `requirements.txt` and reads all data from `data/`.
+   locally; for Google Colab see the section below. The setup cell of every
+   notebook finds this folder by looking for `src/loading.py` and
+   `requirements.txt` and reads all data from `data/`.
 
 ## Order
 
@@ -56,6 +57,21 @@ local machine without Google Drive.
 - An NVIDIA GPU with CUDA for the model part of `llm_risk_signals.ipynb`
   (from the cell "SWITCH TO GPU" onwards). The cells before it run on a CPU. All
   other notebooks run on a CPU; a GPU only makes them faster.
+
+## Running in Google Colab
+
+- Upload the unzipped folder `final` to the top level of My Drive (path
+  `My Drive/final`) and open a notebook from there with Google Colaboratory.
+- The notebooks use only this folder: code, pinned packages and data are read
+  from `My Drive/final`, and no GitHub access is needed.
+- The setup cell installs the pinned packages. If it reports that packages
+  changed, use Runtime, Restart session once and run the notebook again from the
+  setup cell.
+- `llm_risk_signals.ipynb` (notebook 04) runs its first part on a CPU runtime and
+  switches to a GPU runtime at the cell marked SWITCH TO GPU; the setup is
+  repeated in the cell after each runtime switch.
+
+In a local run the setup cell mounts nothing and installs nothing.
 
 ## Section 00: data preparation
 
