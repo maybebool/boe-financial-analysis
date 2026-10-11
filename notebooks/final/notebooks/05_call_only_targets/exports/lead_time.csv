@@ -1,0 +1,6 @@
+unit,call_quarter,call_date,first_report,report_date,lead_months,strength
+T10,2023-Q2,2023-08-31,2023-Q4,2024-02-06,5.2,confirmed by manual check
+T17,2023-Q3,2023-11-07,2024-Q2,2024-08-14,9.2,"weak, checked manually"
+T34,2023-Q4,2024-02-06,2023 annual report,2024-03-28,1.7,"weak, not checked"
+T36,2023-Q4,2024-02-06,2024-Q1,2024-05-07,3.0,confirmed by manual check
+T55,2024-Q3,2024-10-30,2024 annual report,2025-03-17,4.5,"weak, not checked"
